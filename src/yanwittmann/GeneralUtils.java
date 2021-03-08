@@ -71,7 +71,7 @@ public class GeneralUtils {
     }
 
     public static String shuffleCharacters(String input) {
-        ArrayList<Character> characters = new ArrayList<Character>();
+        ArrayList<Character> characters = new ArrayList<>();
         for (char c : input.toCharArray()) {
             characters.add(c);
         }

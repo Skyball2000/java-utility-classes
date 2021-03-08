@@ -2,16 +2,16 @@ package yanwittmann;
 
 import java.io.File;
 
-public class Main {
+public class Testing {
 
     public static void main(String[] args) {
         
     }
 
     private static void visTest() {
-        Vis vis = new Vis("myNetwork", 1200, 800);
+        VisJS vis = new VisJS("myNetwork", 1200, 800);
 
-        vis.addNodeType(0, new Vis.NodeTypeBuilder().setShape(Vis.NodeTypeBuilder.SHAPE_ELLIPSE).setShadow("#848c99", 10));
+        vis.addNodeType(0, new VisJS.NodeTypeBuilder().setShape(VisJS.NodeTypeBuilder.SHAPE_ELLIPSE).setShadow("#848c99", 10));
 
         int amountNodes = 10;
         for (int i = 1; i <= amountNodes; i++) {
@@ -25,12 +25,12 @@ public class Main {
             vis.addEdge("node " + GeneralUtils.randomNumber(1, amountNodes), "node " + i, "title " + i, true);
         }
 
-        vis.setOption(Vis.EDGE_ARROW_DIRECTION, Vis.EDGE_ARROW_TO);
-        vis.setOption(Vis.EDGE_DASHES, true);
-        vis.setOption(Vis.EDGE_SHADOW, true);
-        vis.setOption(Vis.EDGE_SMOOTH, true);
-        vis.setOption(Vis.EDGE_LENGTH, 200);
-        vis.setOption(Vis.PHYSICS_SOLVER, Vis.PHYSICS_SOLVER_FORCE_ATLAS_2_BASED);
+        vis.setOption(VisJS.EDGE_ARROW_DIRECTION, VisJS.EDGE_ARROW_TO);
+        vis.setOption(VisJS.EDGE_DASHES, true);
+        vis.setOption(VisJS.EDGE_SHADOW, true);
+        vis.setOption(VisJS.EDGE_SMOOTH, true);
+        vis.setOption(VisJS.EDGE_LENGTH, 200);
+        vis.setOption(VisJS.PHYSICS_SOLVER, VisJS.PHYSICS_SOLVER_FORCE_ATLAS_2_BASED);
 
         FileUtils.writeFile(new File("out.html"), vis.generate().toArray(new String[0]));
     }

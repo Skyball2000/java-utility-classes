@@ -9,18 +9,18 @@ import java.util.HashMap;
  * This class uses <a href="https://visjs.org/">VisJS</a> to generate a network of nodes and edges.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
-public class Vis {
+public class VisJS {
 
     private String divID = "mynetwork";
     private int width = 1200, height = 800;
 
-    public Vis(String divID, int width, int height) {
+    public VisJS(String divID, int width, int height) {
         this.divID = divID;
         this.width = width;
         this.height = height;
     }
 
-    public Vis() {
+    public VisJS() {
     }
 
     public void setWidth(int width) {

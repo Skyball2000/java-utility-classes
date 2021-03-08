@@ -24,7 +24,7 @@ public abstract class FileUtils {
     }
 
     public static boolean writeFile(File file, String[] data) {
-        BufferedWriter outputWriter = null;
+        BufferedWriter outputWriter;
         try {
             outputWriter = new BufferedWriter(new FileWriter(file));
             for (String datum : data) {
