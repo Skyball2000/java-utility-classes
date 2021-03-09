@@ -10,8 +10,8 @@ A variety of java classes that make coding easier.
 - Log
 - Popup
 - Sleep
-- LineBuilder
 - ImageEditor
+- LineBuilder
 - Pair
 
 This is mainly a collection of code snippets that I collected over the past few years that I sometimes need to reuse.

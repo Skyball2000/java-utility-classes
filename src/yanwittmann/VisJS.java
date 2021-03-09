@@ -38,11 +38,11 @@ public class VisJS {
     private final ArrayList<VisNode> nodes = new ArrayList<>();
     private final ArrayList<VisEdge> edges = new ArrayList<>();
 
-    void addNode(String name, int type) {
-        if (name.length() == 0) return;
+    public void addNode(String title, int type) {
+        if (title.length() == 0) return;
         for (VisNode node : nodes)
-            if (node.getName().equals(name) && node.getType() == type) return;
-        nodes.add(new VisNode(name, type));
+            if (node.getName().equals(title) && node.getType() == type) return;
+        nodes.add(new VisNode(title, type));
     }
 
     private String getNodes() {
@@ -54,19 +54,23 @@ public class VisJS {
         return stringBuilder.toString();
     }
 
-    void addEdge(String nodeTitleFrom, String nodeTitleTo) {
-        addEdge(nodeTitleFrom, nodeTitleTo, "", false);
+    public void addEdge(String from, String to) {
+        addEdge(from, to, "", false);
     }
 
-    void addEdgeBoth(String nodeTitleFrom, String nodeTitleTo) {
-        addEdge(nodeTitleFrom, nodeTitleTo, "", false);
-        addEdge(nodeTitleTo, nodeTitleFrom, "", false);
+    public void addEdgeBoth(String from, String to) {
+        addEdge(from, to, "", false);
+        addEdge(to, from, "", false);
     }
 
-    public boolean addEdge(String nodeTitleFrom, String nodeTitleTo, String label, boolean labelHoverRequired) {
-        if (nodeTitleFrom.length() == 0 || nodeTitleTo.length() == 0) return false;
-        VisNode node1 = getNodeByName(nodeTitleFrom);
-        VisNode node2 = getNodeByName(nodeTitleTo);
+    public boolean addEdge(String from, String to, String label) {
+        return addEdge(from, to, label, false);
+    }
+
+    public boolean addEdge(String from, String to, String label, boolean labelHoverRequired) {
+        if (from.length() == 0 || to.length() == 0) return false;
+        VisNode node1 = getNodeByName(from);
+        VisNode node2 = getNodeByName(to);
         if (node1 == null || node2 == null) return false;
 
         for (VisEdge edge : edges)

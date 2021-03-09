@@ -226,31 +226,31 @@ public class MathEval {
         return Double.parseDouble(d.replace("⁻", "-"));
     }
 
-    static class UnbalancedBracketsException extends MathEvalException {
+    public static class UnbalancedBracketsException extends MathEvalException {
         public UnbalancedBracketsException(String message) {
             super(message);
         }
     }
 
-    static class InvalidOperationException extends MathEvalException {
+    public static class InvalidOperationException extends MathEvalException {
         public InvalidOperationException(String message) {
             super(message);
         }
     }
 
-    static class IllegalCharacterException extends MathEvalException {
+    public static class IllegalCharacterException extends MathEvalException {
         public IllegalCharacterException(String message) {
             super(message);
         }
     }
 
-    static class RecursiveException extends MathEvalException {
+    public static class RecursiveException extends MathEvalException {
         public RecursiveException(String message) {
             super(message);
         }
     }
 
-    static class MathEvalException extends Exception {
+    public static class MathEvalException extends Exception {
         public MathEvalException(String message) {
             super(message);
         }

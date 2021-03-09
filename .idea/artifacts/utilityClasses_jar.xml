@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/utilityClasses_jar</output-path>
     <root id="archive" name="utilityClasses.jar">
       <element id="module-output" name="utilityClasses" />
+      <element id="dir-copy" path="$PROJECT_DIR$/out/javadoc" />
     </root>
   </artifact>
 </component>
