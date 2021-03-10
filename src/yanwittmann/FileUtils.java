@@ -17,34 +17,23 @@ import java.util.zip.ZipOutputStream;
 
 public abstract class FileUtils {
 
-    public static void makeDirectories(File directory) {
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+    public static boolean makeDirectories(File directory) {
+        if (!directory.exists()) return directory.mkdirs();
+        return true;
     }
 
-    public static boolean writeFile(File file, String[] data) {
+    public static boolean writeFile(File file, ArrayList<String> lines) {
+        return writeFile(file, lines.toArray(new String[0]));
+    }
+
+    public static boolean writeFile(File file, String[] lines) {
         BufferedWriter outputWriter;
         try {
             outputWriter = new BufferedWriter(new FileWriter(file));
-            for (String datum : data) {
-                outputWriter.write(datum);
+            for (String line : lines) {
+                outputWriter.write(line);
                 outputWriter.newLine();
             }
-            outputWriter.flush();
-            outputWriter.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean writeFile(File file, String data) {
-        BufferedWriter outputWriter = null;
-        try {
-            outputWriter = new BufferedWriter(new FileWriter(file));
-            outputWriter.write(data);
             outputWriter.flush();
             outputWriter.close();
             return true;
@@ -54,36 +43,54 @@ public abstract class FileUtils {
         }
     }
 
-    public static String[] readFile(File file) {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-            }
-            return sb.toString().split(System.lineSeparator());
+    public static boolean writeFile(File file, String line) {
+        BufferedWriter outputWriter;
+        try {
+            outputWriter = new BufferedWriter(new FileWriter(file));
+            outputWriter.write(line);
+            outputWriter.flush();
+            outputWriter.close();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
     }
 
-    public static byte[] readFileToByteArray(String filename) {
+    public static String[] readFileToStringArray(File file) {
         try {
-            return Files.readAllBytes(new File(filename).toPath());
-        } catch (IOException ignored) {
+            return Files.readAllLines(file.toPath()).toArray(new String[0]);
+        } catch (Exception e) {
+            return null;
         }
-        return null;
     }
 
-    public static void writeFileFromByteArray(String filename, byte[] array) {
+    public static ArrayList<String> readFileToArrayList(File file) {
         try {
-            FileOutputStream fos = new FileOutputStream(filename);
+            return (ArrayList<String>) Files.readAllLines(file.toPath());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static byte[] readFileToByteArray(File file) {
+        try {
+            return Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean writeFileFromByteArray(File file, byte[] array) {
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
             fos.write(array);
             fos.close();
-        } catch (Exception ignored) {
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -116,73 +123,94 @@ public abstract class FileUtils {
         }
     }
 
-    public static boolean deleteDirectory(String dir) {
-        if (!directoryExists(dir)) return false;
-        deleteDir(new File(dir));
-        return true;
-    }
-
-    private static boolean deleteDir(File dir) {
-        File[] files = dir.listFiles();
+    private static boolean deleteDirectory(File directory) {
+        if (!directoryExists(directory)) return false;
+        File[] files = directory.listFiles();
         if (files != null) {
             for (final File file : files) {
-                deleteDir(file);
+                deleteDirectory(file);
             }
         }
-        return dir.delete();
+        return directory.delete();
     }
 
-    public static boolean deleteFile(String file) {
-        return new File(file).delete();
+    public static boolean deleteFile(File file) {
+        return file.delete();
     }
 
-    public static void deleteFilesInDirectory(String directory) {
+    public static boolean deleteFilesInDirectory(String directory) {
         try {
             File dir = new File(directory);
             File[] listFiles = dir.listFiles();
-            for (File file : listFiles) {
-                file.delete();
+            if (listFiles == null) return false;
+            boolean deletedAll = true;
+            for (File file : listFiles)
+                if (!file.delete()) deletedAll = false;
+            return deletedAll;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean fileExists(File file) {
+        return file.exists();
+    }
+
+    public static boolean directoryExists(File directory) {
+        return directory.exists();
+    }
+
+    /**
+     * This only works for executable files.
+     *
+     * @param file             The file to open.
+     * @param workingDirectory The working directory the file should open as.
+     */
+    public static boolean openFile(File file, File workingDirectory) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(file.getAbsoluteFile().toString());
+            pb.directory(workingDirectory.getAbsoluteFile());
+            pb.start();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean openFileUsingProcessBuilder(File file) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(file.getAbsolutePath());
+            pb.start();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean openFile(File file) {
+        try {
+            if (!Desktop.isDesktopSupported())
+                return false;
+            Desktop desktop = Desktop.getDesktop();
+            if (file.exists()) {
+                desktop.open(file);
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public static boolean fileExists(String file) {
-        return new File(file).exists();
-    }
-
-    public static boolean directoryExists(String directory) {
-        return new File(directory).exists();
-    }
-
-    public static boolean openFile(String file, String workingDirectory) {
-        try {
-            ProcessBuilder pb = new ProcessBuilder(new File(file).getAbsoluteFile().toString());
-            pb.directory(new File(workingDirectory).getAbsoluteFile());
-            pb.start();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public static boolean openFile(String file) {
-        try {
-            ProcessBuilder pb = new ProcessBuilder(file);
-            pb.start();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /* thank you to,        Maurício Linhares   https://stackoverflow.com/questions/6811522/changing-the-working-directory-of-command-from-java/6811578
-     * and                  Aniket Thakur       https://stackoverflow.com/questions/17985036/run-a-jar-file-from-java-program
+    /**
+     * Opens a Jar file with a set of arguments arguments.<br>
+     * Thanks to <a href="https://stackoverflow.com/questions/6811522/changing-the-working-directory-of-command-from-java/6811578">Maurício Linhares</a>
+     * and <a href="https://stackoverflow.com/questions/17985036/run-a-jar-file-from-java-program">Aniket Thakur</a> for helping out with this.
      */
-    public static void openJar(String jar, String path, String[] args) {
+    public static boolean openJar(String jar, String path, String[] args) {
         try {
             File pathToExecutable = new File(jar);
             String[] args2 = new String[args.length + 3];
@@ -190,23 +218,23 @@ public abstract class FileUtils {
             args2[1] = "-jar";
             args2[2] = pathToExecutable.getAbsolutePath();
             System.arraycopy(args, 0, args2, 3, args2.length - 3);
-            /*for (int i = 3; i < args2.length; i++)
-                args2[i] = args[i - 3];*/
             ProcessBuilder builder = new ProcessBuilder(args2);
-            builder.directory(new File(path).getAbsoluteFile()); // this is where you set the root folder for the executable to run with
+            builder.directory(new File(path).getAbsoluteFile());
             builder.redirectErrorStream(true);
             builder.start();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public static boolean pack(String sourceDirPath, String zipFilePath) {
+    public static boolean pack(File sourceDirPath, File zipFilePath) {
         try {
             deleteFile(zipFilePath);
-            Path p = Files.createFile(Paths.get(zipFilePath));
+            Path p = Files.createFile(zipFilePath.toPath());
             try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
-                Path pp = Paths.get(sourceDirPath);
+                Path pp = sourceDirPath.toPath();
                 Files.walk(pp)
                         .filter(path -> !Files.isDirectory(path))
                         .forEach(path -> {
@@ -272,9 +300,9 @@ public abstract class FileUtils {
         return destFile;
     }
 
-    public static boolean isArchive(String file) {
+    public static boolean isArchive(File file) {
         int fileSignature = 0;
-        try (RandomAccessFile raf = new RandomAccessFile(new File(file), "r")) {
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
             fileSignature = raf.readInt();
         } catch (IOException e) {
             e.printStackTrace();
@@ -311,67 +339,49 @@ public abstract class FileUtils {
         return -1;
     }
 
-    public static String[] getFiles(String path) {
-        File directoryPath = new File(path);
-        int counter = 0;
-        for (File file : Objects.requireNonNull(directoryPath.listFiles()))
-            counter++;
-        String[] allFiles = new String[counter];
-        counter = 0;
-        for (File file : Objects.requireNonNull(directoryPath.listFiles())) {
-            allFiles[counter] = file.getName();
-            counter++;
-        }
-        return allFiles;
+    public static ArrayList<File> getFiles(File directory) {
+        ArrayList<File> foundFiles = new ArrayList<>();
+        return getFiles(directory, "", foundFiles);
     }
 
-    public static String[] getFilesWithEnding(String path, String ending) {
-        final String ending2 = ending.replace(".", "");
-        File directoryPath = new File(path);
-
-        File[] files = directoryPath.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith("." + ending2);
-            }
-        });
-
-        int counter = 0;
-        assert files != null;
-        for (File file : files)
-            counter++;
-        String[] allFiles = new String[counter];
-        counter = 0;
-        for (File file : files) {
-            allFiles[counter] = file.getName();
-            counter++;
-        }
-        return allFiles;
+    public static ArrayList<File> getFiles(File directory, String ending) {
+        ArrayList<File> foundFiles = new ArrayList<>();
+        return getFiles(directory, ending, foundFiles);
     }
 
-    private static String lastPickLocation = "";
+    private static ArrayList<File> getFiles(File directory, String ending, ArrayList<File> foundFiles) {
+        if (directory.isDirectory()) {
+            File[] found = directory.listFiles();
+            if (found == null) return foundFiles;
+            for (File file : found)
+                if (file.isDirectory()) getFiles(file, ending, foundFiles);
+                else if (ending.length() == 0 || file.getName().endsWith(ending))
+                    foundFiles.add(file);
+        }
+        return foundFiles;
+    }
 
-    public static String javaFilePicker() {
-        JFileChooser chooser = null;
-        if (lastPickLocation.equals("")) chooser = new JFileChooser(System.getProperty("user.home") + "/Desktop");
-        else chooser = new JFileChooser(lastPickLocation);
+    private static String lastJavaFilePickLocation = "";
+
+    public static File javaFilePicker() {
+        JFileChooser chooser;
+        if (lastJavaFilePickLocation.equals(""))
+            chooser = new JFileChooser(System.getProperty("user.home") + "/Desktop");
+        else chooser = new JFileChooser(lastJavaFilePickLocation);
         chooser.showOpenDialog(null);
-        lastPickLocation = chooser.getSelectedFile().getAbsolutePath();
+        lastJavaFilePickLocation = chooser.getSelectedFile().getAbsolutePath();
         try {
-            return chooser.getSelectedFile().getAbsolutePath();
+            return chooser.getSelectedFile();
         } catch (Exception e) {
-            return "";
+            e.printStackTrace();
+            return null;
         }
     }
 
-    public static String[] windowsFilePicker() {
+    public static File[] windowsFilePicker() {
         FileDialog picker = new java.awt.FileDialog((java.awt.Frame) null);
         picker.setVisible(true);
-        File[] f = picker.getFiles();
-        String[] paths = new String[f.length];
-        for (int i = 0; i < f.length; i++)
-            paths[i] = f[i].getAbsolutePath();
-        return paths;
+        return picker.getFiles();
     }
 
     public static String getFilename(String path) {
@@ -389,20 +399,31 @@ public abstract class FileUtils {
             while ((i = read.readLine()) != null)
                 lines.add(i);
             read.close();
-        } catch (Exception ignored) {
+            String[] result = new String[lines.size()];
+            for (int j = 0; j < lines.size(); j++)
+                result[j] = lines.get(j);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        String[] result = new String[lines.size()];
-        for (int i = 0; i < lines.size(); i++)
-            result[i] = lines.get(i);
-        return result;
     }
 
-    public static boolean saveUrl(String filename, String urlString) {
+    public static boolean downloadFile(File file, String url) {
+        try {
+            return downloadFile(file, new URL(url));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean downloadFile(File file, URL url) {
         BufferedInputStream in;
         FileOutputStream fout;
         try {
-            in = new BufferedInputStream(new URL(urlString).openStream());
-            fout = new FileOutputStream(filename);
+            in = new BufferedInputStream(url.openStream());
+            fout = new FileOutputStream(file);
 
             final byte[] data = new byte[1024];
             int count;
@@ -414,8 +435,8 @@ public abstract class FileUtils {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public static boolean connectedToInternet() {
@@ -433,51 +454,46 @@ public abstract class FileUtils {
         try {
             return Font.createFont(Font.TRUETYPE_FONT, new File(filename)).deriveFont(30f);
         } catch (Exception e) {
-            return new Font("TimesRoman", Font.PLAIN, 30);
+            return null;
         }
     }
 
-    private static HashMap<String, Timer> watchFiles = new HashMap<>();
+    private static final HashMap<String, Timer> watchFiles = new HashMap<>();
 
-    public static void addWatchFile(String path) {
-        if (watchFiles.containsKey(path)) return;
-        watchFiles.put(path, watchFileSaved(path));
+    public static void addWatchFile(File file, int period, FileWatcher fileWatcher) {
+        if (watchFiles.containsKey(file.getAbsolutePath())) return;
+        fileWatcher.setFile(file);
+        watchFiles.put(file.getAbsolutePath(), saveWatchFile(fileWatcher, period));
     }
 
-    public static void removeWatchFile(String path) {
-        if (!watchFiles.containsKey(path)) return;
-        Timer t = watchFiles.get(path);
+    public static void removeWatchFile(File file) {
+        if (!watchFiles.containsKey(file.getAbsolutePath())) return;
+        Timer t = watchFiles.get(file.getAbsolutePath());
         t.cancel();
         t.purge();
-        watchFiles.remove(path);
-        deleteFile(path);
+        watchFiles.remove(file.getAbsolutePath());
     }
 
     //thanks to Réal Gagnon for this part of the code (https://www.rgagnon.com/javadetails/java-0490.html)
-    private static Timer watchFileSaved(String path) {
-        TimerTask task = new FileWatcher(new File(path)) {
-            protected void onChange(File file) {
-                //put your onChange code here
-            }
-        };
+    private static Timer saveWatchFile(FileWatcher fileWatcher, int period) {
         Timer timer = new Timer();
-        timer.schedule(task, new Date(), 1000);
+        timer.schedule(fileWatcher, new Date(), period);
         return timer;
     }
 
     public abstract static class FileWatcher extends TimerTask {
-        private long timeStamp;
-        private final File file;
+        private File file;
+        private long lastModified;
 
-        public FileWatcher(File file) {
+        public void setFile(File file) {
             this.file = file;
-            this.timeStamp = file.lastModified();
+            this.lastModified = file.lastModified();
         }
 
         public final void run() {
             long timeStamp = file.lastModified();
-            if (this.timeStamp != timeStamp) {
-                this.timeStamp = timeStamp;
+            if (this.lastModified != timeStamp) {
+                this.lastModified = timeStamp;
                 onChange(file);
             }
         }
@@ -489,17 +505,9 @@ public abstract class FileUtils {
         return new File(file).lastModified();
     }
 
-    public static void setLastModified(String file, long time) {
+    public static void setLastModified(File file, long time) {
         try {
-            Files.setLastModifiedTime(Path.of(file), FileTime.fromMillis(time));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void setHidden(String file, boolean hidden) {
-        try {
-            Files.setAttribute(Paths.get(file), "dos:hidden", hidden, LinkOption.NOFOLLOW_LINKS);
+            Files.setLastModifiedTime(file.toPath(), FileTime.fromMillis(time));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -509,11 +517,11 @@ public abstract class FileUtils {
         return new File(file).isHidden();
     }
 
-    private ArrayList<String> loadFile(String filename) {
+    public static void setHidden(String file, boolean hidden) {
         try {
-            return (ArrayList<String>) Files.readAllLines(Paths.get(filename));
-        } catch (Exception e) {
-            return null;
+            Files.setAttribute(Paths.get(file), "dos:hidden", hidden, LinkOption.NOFOLLOW_LINKS);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

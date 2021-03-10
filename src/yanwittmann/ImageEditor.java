@@ -23,20 +23,19 @@ public class ImageEditor {
         g.drawImage(image, 0, 0, null);
         g.dispose();
         image = newImage;
-
-        System.out.println("Read image file " + file.getName());
     }
 
     public ImageEditor(BufferedImage image) {
         this.image = image;
     }
 
-    public void save(File file) {
+    public boolean save(File file) {
         try {
             ImageIO.write(image, file.getName().replaceAll(".+\\.([^.]+)", "$1"), file);
-            System.out.println("Saved to file " + file.getName());
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

@@ -5,7 +5,9 @@ import java.io.File;
 public class Testing {
 
     public static void main(String[] args) {
-        
+        Configuration configuration = new Configuration(new File("C:\\Users\\yan20\\Pictures\\test.txt"));
+        configuration.set("test", "lol\nhmm:quark");
+        System.out.println(configuration.get("test"));
     }
 
     private static void visTest() {
