@@ -2,6 +2,11 @@ package yanwittmann;
 
 import java.util.Arrays;
 
+/**
+ * Works just as a StringBuilder, but every time you append to the LineBuilder, a new line is created.<br>
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.<br>
+ * @see StringBuilder StringBuilder
+ */
 public class LineBuilder {
     private final StringBuilder stringBuilder = new StringBuilder();
     private String linebreakSymbol = "\n";

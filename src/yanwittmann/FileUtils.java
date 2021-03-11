@@ -15,6 +15,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Plenty of functions that are useful for plenty of different cases, such as getting the screen size, moving the mouse
+ *   cursor, string functions, clipboard actions and much more.<br>
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ */
 public abstract class FileUtils {
 
     public static boolean makeDirectories(File directory) {

@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Before you start working with this class, make sure that a file <a href="http://yanwittmann.de/projects/vis/vis.css">vis.css</a> and
- * <a href="http://yanwittmann.de/projects/vis/vis.js">vis.js</a> are both available.<br>
  * This class uses <a href="https://visjs.org/">VisJS</a> to generate a network of nodes and edges.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
 public class VisJS {
 
-    private String divID = "mynetwork";
+    private String divID = "mynetwork", visJsFile = "http://yanwittmann.de/projects/vis/vis.js";
+    private String visCssFile = "http://yanwittmann.de/projects/vis/vis.css";
     private int width = 1200, height = 800;
 
     public VisJS(String divID, int width, int height) {
@@ -21,6 +20,14 @@ public class VisJS {
     }
 
     public VisJS() {
+    }
+
+    public void setCssFile(String path) {
+        this.visCssFile = path;
+    }
+
+    public void setJsFile(String path) {
+        this.visJsFile = path;
     }
 
     public void setWidth(int width) {
@@ -179,6 +186,41 @@ public class VisJS {
 
     public void addNodeType(int typeID, NodeTypeBuilder parameters) {
         types.put(typeID, parameters.getParameters());
+    }
+
+    public ArrayList<String> generate() {
+        ArrayList<String> generated = new ArrayList<>();
+
+        generated.add("<script type=\"text/javascript\" src=\"" + visJsFile + "\"></script>");
+        generated.add("<link href=\"" + visCssFile + "\" rel=\"stylesheet\" type=\"text/css\"/>");
+        generated.add("<style type=\"text/css\">");
+        generated.add("  #" + divID + " {");
+        generated.add("  width: " + width + "px;");
+        generated.add("  height: " + height + "px;");
+        generated.add("  border: 1px solid lightgray;");
+        generated.add("}");
+        generated.add("</style>");
+
+        generated.add("<div id=\"" + divID + "\"></div>");
+        generated.add("<script type=\"text/javascript\">");
+        generated.add("  var nodes = new vis.DataSet([");
+        generated.add(getNodes());
+        generated.add("  ]);");
+        generated.add("  var edges = new vis.DataSet([");
+        generated.add(getEdges());
+        generated.add("  ]);");
+        generated.add("  var container = document.getElementById('" + divID + "');");
+        generated.add("  var data = {");
+        generated.add("   nodes: nodes,");
+        generated.add("   edges: edges");
+        generated.add("  };");
+        generated.add("  var options = {");
+        generated.add(getOptions());
+        generated.add("}");
+        generated.add("var network = new vis.Network(container, data, options);");
+        generated.add("</script>");
+
+        return generated;
     }
 
     public static class NodeTypeBuilder {
@@ -384,40 +426,4 @@ public class VisJS {
     public final static String PHYSICS_SOLVER_SETTING_SPRING_CONSTANT = "springConstant";
     public final static String PHYSICS_SOLVER_SETTING_DAMPING = "damping";
     public final static String PHYSICS_SOLVER_SETTING_AVOID_OVERLAP = "avoidOverlap";
-
-    public ArrayList<String> generate() {
-        ArrayList<String> generated = new ArrayList<>();
-
-        generated.add("<script type=\"text/javascript\" src=\"vis.js\"></script>");
-        generated.add("<link href=\"vis.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-        generated.add("<style type=\"text/css\">");
-        generated.add("  #" + divID + " {");
-        generated.add("  width: " + width + "px;");
-        generated.add("  height: " + height + "px;");
-        generated.add("  border: 1px solid lightgray;");
-        generated.add("}");
-        generated.add("</style>");
-
-        generated.add("<div id=\"" + divID + "\"></div>");
-        generated.add("<script type=\"text/javascript\">");
-        generated.add("  var nodes = new vis.DataSet([");
-        generated.add(getNodes());
-        generated.add("  ]);");
-        generated.add("  var edges = new vis.DataSet([");
-        generated.add(getEdges());
-        generated.add("  ]);");
-        generated.add("  var container = document.getElementById('" + divID + "');");
-        generated.add("  var data = {");
-        generated.add("   nodes: nodes,");
-        generated.add("   edges: edges");
-        generated.add("  };");
-        generated.add("  var options = {");
-        generated.add(getOptions());
-        generated.add("}");
-        generated.add("var network = new vis.Network(container, data, options);");
-        generated.add("</script>");
-        generated.add("");
-
-        return generated;
-    }
 }

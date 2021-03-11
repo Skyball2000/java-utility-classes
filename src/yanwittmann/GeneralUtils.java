@@ -1,8 +1,6 @@
 package yanwittmann;
 
 import javax.imageio.ImageIO;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -16,17 +14,18 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * A wide variety of functions you can use.<br>
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ */
 public class GeneralUtils {
 
     private boolean isInit = false;
 
     public void init() {
-        if(isInit) return;
+        if (isInit) return;
         new Thread(() -> {
             try {
-                mgr = new ScriptEngineManager();
-                engine = mgr.getEngineByName("JavaScript");
-                evaluateMathExpression("");
                 screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 isInit = true;
             } catch (Exception e) {
@@ -86,17 +85,6 @@ public class GeneralUtils {
     public static String[] replaceAllLines(String[] array, String find, String replace) {
         for (int i = 0; i < array.length; i++) array[i] = array[i].replace(find, replace);
         return array;
-    }
-
-    private static ScriptEngineManager mgr;
-    private static ScriptEngine engine;
-
-    public static int evaluateMathExpression(String expr) {
-        try {
-            return Integer.parseInt("" + engine.eval(expr));
-        } catch (Exception e) {
-            return -969657;
-        }
     }
 
     public static int randomNumber(int min, int max) {

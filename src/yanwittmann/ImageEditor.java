@@ -6,6 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class is still work in progress, but can be used to read an image file and edit individual pixels.<br>
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ */
 public class ImageEditor {
     private BufferedImage image;
 

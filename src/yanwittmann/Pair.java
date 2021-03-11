@@ -1,5 +1,9 @@
 package yanwittmann;
 
+/**
+ * Two values of any class stored in one object.<br>
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ */
 public class Pair<L, R> {
 
     private L left;

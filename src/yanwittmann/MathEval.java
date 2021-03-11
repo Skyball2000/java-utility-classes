@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Use this class to evaluate mathematical expressions given as strings.<br>
- * Class written by <a href="http://yanwittmann.de/site/">Yan Wittmann</a>.
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
 public class MathEval {
 

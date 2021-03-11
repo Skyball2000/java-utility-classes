@@ -5,6 +5,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Logs strings and objects. You can dump or print the log. You can add and remove indentations<br>
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ */
 public abstract class Log {
     private static final ArrayList<String> log = new ArrayList<>();
     private static boolean activated = false;

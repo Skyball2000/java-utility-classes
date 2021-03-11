@@ -1,5 +1,9 @@
 package yanwittmann;
 
+/**
+ * Use this class to measure the total and average time that a certain operation needs for executing a certain amount of times.<br>
+ * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ */
 public abstract class PerformanceTest {
     private final int repeatCount;
     private long result = -1;
