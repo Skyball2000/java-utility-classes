@@ -34,4 +34,4 @@ A variety of java classes that make coding easier.
 
 This is mainly a collection of code snippets or classes that I collected over the past few years
 that I sometimes need to reuse.  
-I hope you can use them for your projects as well. 
+I hope you can use them for your projects as well.

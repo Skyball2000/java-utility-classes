@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Easily store string values in a file using a key-value pair.<br>
@@ -58,6 +59,10 @@ public class Configuration {
         return values.containsKey(key) ? values.get(key).replace("CFGEOL", "\n") : null;
     }
 
+    public HashMap<String, String> get() {
+        return values;
+    }
+
     private String prepareKey(String key) {
         return key.replace(":", "CFGCOLO");
     }
@@ -71,5 +76,9 @@ public class Configuration {
         for (Map.Entry<String, String> value : values.entrySet())
             builder.append(value.getKey() + ":" + value.getValue());
         FileUtils.writeFile(file, builder.toString());
+    }
+
+    public Stream<Map.Entry<String, String>> stream() {
+        return values.entrySet().stream();
     }
 }

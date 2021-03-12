@@ -188,6 +188,14 @@ public class VisJS {
         types.put(typeID, parameters.getParameters());
     }
 
+    public int getNodeCount() {
+        return nodes.size();
+    }
+
+    public int getEdgeCount() {
+        return edges.size();
+    }
+
     public ArrayList<String> generate() {
         ArrayList<String> generated = new ArrayList<>();
 
@@ -232,7 +240,7 @@ public class VisJS {
         }
 
         public NodeTypeBuilder setColor(String color) {
-            parameters.add("color: '" + color + "'");
+            parameters.add("color: '#" + color.replace("#", "") + "'");
             return this;
         }
 

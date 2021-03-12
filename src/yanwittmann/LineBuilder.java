@@ -1,6 +1,7 @@
 package yanwittmann;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * Works just as a StringBuilder, but every time you append to the LineBuilder, a new line is created.<br>
@@ -63,5 +64,9 @@ public class LineBuilder {
 
     private int countOccurrences(String text, String find) {
         return (text.length() - text.replace(find, "").length()) / find.length();
+    }
+
+    public Stream<String> stream() {
+        return Stream.of(toLines());
     }
 }

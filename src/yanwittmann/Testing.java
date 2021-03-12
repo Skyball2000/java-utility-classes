@@ -1,13 +1,11 @@
 package yanwittmann;
 
 import java.io.File;
+import java.util.Map;
 
 public class Testing {
 
     public static void main(String[] args) {
-        Configuration configuration = new Configuration(new File("C:\\Users\\yan20\\Pictures\\test2.txt"));
-        configuration.set("t:est", "lol\nhmm:quark");
-        System.out.println(configuration.get("t:est"));
 
     }
 
