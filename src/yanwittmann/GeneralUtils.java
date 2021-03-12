@@ -69,6 +69,14 @@ public class GeneralUtils {
         return str.substring(minIndex, maxIndex);
     }
 
+    public static String makeOneLine(String[] lines) {
+        return String.join("", lines);
+    }
+
+    public static String makeOneLine(String[] lines, String delimiter) {
+        return String.join(delimiter, lines);
+    }
+
     public static String shuffleCharacters(String input) {
         ArrayList<Character> characters = new ArrayList<>();
         for (char c : input.toCharArray()) {

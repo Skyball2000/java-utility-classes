@@ -6,7 +6,22 @@ import java.util.Map;
 public class Testing {
 
     public static void main(String[] args) {
+        GoogleTranslate translate = new GoogleTranslate();
+        translate.setLanguages(GoogleTranslate.German, GoogleTranslate.French);
 
+        System.out.println(new PerformanceTest(40) {
+            @Override
+            public void perform() {
+                translate.translate("Guten morgen, wie geht es ihnen?");
+            }
+        }.start().getAverageResult());
+
+        System.out.println(new PerformanceTest(40) {
+            @Override
+            public void perform() {
+                translate.translate("Dies ist ein längerer Text. Ob das hier wohl länger brauchen wird? Das ist eine gute Frage. So wie die Forumsplattform.");
+            }
+        }.start().getAverageResult());
     }
 
     private static void visTest() {

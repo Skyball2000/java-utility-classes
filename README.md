@@ -10,6 +10,9 @@ A variety of java classes that make coding easier.
   cursor, string functions, clipboard actions and much more.
 - **MathEval**  
   Use this class to evaluate mathematical expressions.
+- **GoogleTranslate**  
+  Use an object of this class to translate a text using the Google Translate API. Requires an average of 55ms per
+  translation on my device.
 - **VisJS**  
   This class uses [VisJS](https://visjs.org/) to generate a network of nodes and edges. You can customize the path to
   the JS and css files that are being used by the browser to display the network.

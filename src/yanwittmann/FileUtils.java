@@ -389,17 +389,16 @@ public abstract class FileUtils {
         return picker.getFiles();
     }
 
-    public static String getFilename(String path) {
-        File f = new File(path);
-        return f.getName();
+    public static String getFilename(File file) {
+        return file.getName();
     }
 
-    public static String[] getResponseFromURL(String pUrl) {
-        pUrl = pUrl.replace(" ", "%20");
+    public static String[] getResponseFromURL(String url) {
+        url = url.replace(" ", "%20");
         ArrayList<String> lines = new ArrayList<>();
         try {
-            URL url = new URL(pUrl);
-            BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
+            URL urlObject = new URL(url);
+            BufferedReader read = new BufferedReader(new InputStreamReader(urlObject.openStream()));
             String i;
             while ((i = read.readLine()) != null)
                 lines.add(i);
