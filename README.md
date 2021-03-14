@@ -1,4 +1,5 @@
 # Java utility classes
+
 A variety of java classes that make coding easier.
 
 ## Contains:
@@ -19,8 +20,8 @@ A variety of java classes that make coding easier.
 - **Configuration**  
   Easily store string values in a file using a key-value pair.
 - **PerformanceTest**  
-  Use this class to measure the total and average time that a certain operation needs for executing a certain
-  amount of times.  
+  Use this class to measure the total and average time that a certain operation needs for executing a certain amount of
+  times.  
   Use this to compare different methods for executing a certain task.
 - **Log**  
   A simple logger class.
@@ -34,7 +35,10 @@ A variety of java classes that make coding easier.
   Works just as a StringBuilder, but every time you append to the LineBuilder, a new line is created.
 - **Pair**  
   Two values of any class stored in one object.
+- **CountApi**  
+  Use this class to access the [https://countapi.xyz/](https://countapi.xyz/) which serves as an online
+  counter.
 
-This is mainly a collection of code snippets or classes that I collected over the past few years
-that I sometimes need to reuse.  
+This is mainly a collection of code snippets or classes that I collected over the past few years that I sometimes need
+to reuse.  
 I hope you can use them for your projects as well.

@@ -16,22 +16,48 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Plenty of functions that are useful for plenty of different cases, such as getting the screen size, moving the mouse
- *   cursor, string functions, clipboard actions and much more.<br>
+ * A wide variety of functions related to reading, writing and watching files.<br>
+ * Use setDisplayExceptions(boolean) to decide whether the exceptions thrown should be printed.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
 public abstract class FileUtils {
+
+    private static boolean displayExceptions = false;
+
+    public static void setDisplayExceptions(boolean displayExceptions) {
+        FileUtils.displayExceptions = displayExceptions;
+    }
+
+    public void displayExceptions() {
+        FileUtils.displayExceptions = true;
+    }
+
+    public void hideExceptions() {
+        FileUtils.displayExceptions = true;
+    }
+
+    public static String getLastJavaFilePickLocation() {
+        return lastJavaFilePickLocation;
+    }
 
     public static boolean makeDirectories(File directory) {
         if (!directory.exists()) return directory.mkdirs();
         return true;
     }
 
+    public static boolean makeDirectories(String directory) {
+        File file = new File(directory);
+        if (!file.exists()) return file.mkdirs();
+        return true;
+    }
+
     public static boolean writeFile(File file, ArrayList<String> lines) {
+        makeDirectories(file.getAbsolutePath().replace(file.getName(), ""));
         return writeFile(file, lines.toArray(new String[0]));
     }
 
     public static boolean writeFile(File file, String[] lines) {
+        makeDirectories(file.getAbsolutePath().replace(file.getName(), ""));
         BufferedWriter outputWriter;
         try {
             outputWriter = new BufferedWriter(new FileWriter(file));
@@ -43,12 +69,14 @@ public abstract class FileUtils {
             outputWriter.close();
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
 
     public static boolean writeFile(File file, String line) {
+        makeDirectories(file.getAbsolutePath().replace(file.getName(), ""));
         BufferedWriter outputWriter;
         try {
             outputWriter = new BufferedWriter(new FileWriter(file));
@@ -57,7 +85,8 @@ public abstract class FileUtils {
             outputWriter.close();
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
@@ -66,6 +95,8 @@ public abstract class FileUtils {
         try {
             return Files.readAllLines(file.toPath()).toArray(new String[0]);
         } catch (Exception e) {
+            if (displayExceptions)
+                e.printStackTrace();
             return null;
         }
     }
@@ -74,6 +105,8 @@ public abstract class FileUtils {
         try {
             return (ArrayList<String>) Files.readAllLines(file.toPath());
         } catch (Exception e) {
+            if (displayExceptions)
+                e.printStackTrace();
             return null;
         }
     }
@@ -82,7 +115,8 @@ public abstract class FileUtils {
         try {
             return Files.readAllBytes(file.toPath());
         } catch (IOException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return null;
         }
     }
@@ -94,22 +128,28 @@ public abstract class FileUtils {
             fos.close();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
 
-    public static boolean copyFile(String sourceFile, String destinationFile) {
+    public static boolean copyFile(File sourceFile, File destinationFile) {
         try {
-            Files.copy(new File(sourceFile).toPath(), (new File(destinationFile)).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(sourceFile.toPath(), (destinationFile).toPath(), StandardCopyOption.REPLACE_EXISTING);
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
 
-    public static boolean copyDirectory(String sourceDirectoryLocation, String destinationDirectoryLocation) {
+    public static boolean copyDirectory(File sourceDirectoryLocation, File destinationDirectoryLocation) {
+        return copyDirectory(sourceDirectoryLocation.getAbsolutePath(), destinationDirectoryLocation.getAbsolutePath());
+    }
+
+    private static boolean copyDirectory(String sourceDirectoryLocation, String destinationDirectoryLocation) {
         try {
             Files.walk(Paths.get(sourceDirectoryLocation))
                     .forEach(source -> {
@@ -118,17 +158,19 @@ public abstract class FileUtils {
                         try {
                             Files.copy(source, destination);
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            if (displayExceptions)
+                                e.printStackTrace();
                         }
                     });
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
 
-    private static boolean deleteDirectory(File directory) {
+    public static boolean deleteDirectory(File directory) {
         if (!directoryExists(directory)) return false;
         File[] files = directory.listFiles();
         if (files != null) {
@@ -143,17 +185,17 @@ public abstract class FileUtils {
         return file.delete();
     }
 
-    public static boolean deleteFilesInDirectory(String directory) {
+    public static boolean deleteFilesInDirectory(File directory) {
         try {
-            File dir = new File(directory);
-            File[] listFiles = dir.listFiles();
+            File[] listFiles = directory.listFiles();
             if (listFiles == null) return false;
             boolean deletedAll = true;
             for (File file : listFiles)
                 if (!file.delete()) deletedAll = false;
             return deletedAll;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
@@ -179,7 +221,8 @@ public abstract class FileUtils {
             pb.start();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
@@ -190,7 +233,8 @@ public abstract class FileUtils {
             pb.start();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
@@ -205,7 +249,8 @@ public abstract class FileUtils {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
         }
         return false;
     }
@@ -229,7 +274,8 @@ public abstract class FileUtils {
             builder.start();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
@@ -249,24 +295,25 @@ public abstract class FileUtils {
                                 Files.copy(path, zs);
                                 zs.closeEntry();
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                if (displayExceptions)
+                                    e.printStackTrace();
                             }
                         });
             }
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
 
-    public static void unpack(String zipFile, String destination) throws IOException {
-        File destDir = new File(destination);
+    public static void unpack(File zipFile, File destination) throws IOException {
         byte[] buffer = new byte[1024];
         ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
         ZipEntry zipEntry = zis.getNextEntry();
         while (zipEntry != null) {
-            File newFile = newUnZipFile(destDir, zipEntry);
+            File newFile = newUnZipFile(destination, zipEntry);
             if (zipEntry.isDirectory()) {
                 if (!newFile.isDirectory() && !newFile.mkdirs()) {
                     throw new IOException("Failed to create directory " + newFile);
@@ -310,13 +357,14 @@ public abstract class FileUtils {
         try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
             fileSignature = raf.readInt();
         } catch (IOException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
         }
         return fileSignature == 0x504B0304 || fileSignature == 0x504B0506 || fileSignature == 0x504B0708;
     }
 
-    public static long fileSize(String filename) {
-        return new File(filename).length();
+    public static long fileSize(File filename) {
+        return filename.length();
     }
 
     public static int onlineFileSize(String url) {
@@ -339,7 +387,8 @@ public abstract class FileUtils {
                 }
             }
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
         }
         return -1;
     }
@@ -378,7 +427,8 @@ public abstract class FileUtils {
         try {
             return chooser.getSelectedFile();
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return null;
         }
     }
@@ -408,7 +458,33 @@ public abstract class FileUtils {
                 result[j] = lines.get(j);
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String[] getResponseURL(String url) {
+        url = url.replace(" ", "%20");
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            URL urlObject = new URL(url);
+            URLConnection request = urlObject.openConnection();
+            request.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+            request.setRequestProperty("Content-Type", "text/plain; utf-8");
+            request.connect();
+            BufferedReader read = new BufferedReader(new InputStreamReader((InputStream) request.getContent()));
+            String i;
+            while ((i = read.readLine()) != null)
+                lines.add(i);
+            read.close();
+            String[] result = new String[lines.size()];
+            for (int j = 0; j < lines.size(); j++)
+                result[j] = lines.get(j);
+            return result;
+        } catch (Exception e) {
+            if (displayExceptions)
+                e.printStackTrace();
             return null;
         }
     }
@@ -417,7 +493,8 @@ public abstract class FileUtils {
         try {
             return downloadFile(file, new URL(url));
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
@@ -438,7 +515,8 @@ public abstract class FileUtils {
             fout.close();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
@@ -450,14 +528,18 @@ public abstract class FileUtils {
             connection.connect();
             return true;
         } catch (Exception e) {
+            if (displayExceptions)
+                e.printStackTrace();
             return false;
         }
     }
 
-    public static Font getFont(String filename) {
+    public static Font getFont(File file) {
         try {
-            return Font.createFont(Font.TRUETYPE_FONT, new File(filename)).deriveFont(30f);
+            return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(30f);
         } catch (Exception e) {
+            if (displayExceptions)
+                e.printStackTrace();
             return null;
         }
     }
@@ -505,27 +587,29 @@ public abstract class FileUtils {
         protected abstract void onChange(File file);
     }
 
-    public static long lastModified(String file) {
-        return new File(file).lastModified();
+    public static long lastModified(File file) {
+        return file.lastModified();
     }
 
     public static void setLastModified(File file, long time) {
         try {
             Files.setLastModifiedTime(file.toPath(), FileTime.fromMillis(time));
         } catch (IOException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
         }
     }
 
-    public static boolean isHidden(String file) {
-        return new File(file).isHidden();
+    public static boolean isHidden(File file) {
+        return file.isHidden();
     }
 
-    public static void setHidden(String file, boolean hidden) {
+    public static void setHidden(File file, boolean hidden) {
         try {
-            Files.setAttribute(Paths.get(file), "dos:hidden", hidden, LinkOption.NOFOLLOW_LINKS);
+            Files.setAttribute(file.toPath(), "dos:hidden", hidden, LinkOption.NOFOLLOW_LINKS);
         } catch (IOException e) {
-            e.printStackTrace();
+            if (displayExceptions)
+                e.printStackTrace();
         }
     }
 }

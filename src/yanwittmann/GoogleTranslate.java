@@ -1,7 +1,11 @@
 package yanwittmann;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Use an object of this class to translate a text using the Google Translate API.<br>
+ * Use bulk requests to speed up the translation process and to prevent error 429 (you can only perform a certain amount of requests in a time window).<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
 public class GoogleTranslate {
@@ -10,7 +14,7 @@ public class GoogleTranslate {
     private String toLanguage = "de";
 
     public String translate(String text) {
-        String[] response = FileUtils.getResponseFromURL(prepareTranslateURL(text));
+        String[] response = FileUtils.getResponseURL(prepareTranslateURL(text));
         if (response != null && response.length != 0) {
             String asOneLine = GeneralUtils.makeOneLine(response);
             if (asOneLine.matches(TRANSLATE_RESULT_REGEX))
@@ -23,6 +27,42 @@ public class GoogleTranslate {
         this.fromLanguage = from;
         this.toLanguage = to;
         return translate(text);
+    }
+
+    private HashMap<Object, String> bulkRequests;
+    private HashMap<Integer, Object> bulkRequestsObjects;
+    private boolean initializedBulkMap = false;
+
+    public void addRequest(Object key, String text) {
+        if (!initializedBulkMap) {
+            bulkRequests = new HashMap<>();
+            bulkRequestsObjects = new HashMap<>();
+            initializedBulkMap = true;
+        }
+        bulkRequestsObjects.put(bulkRequests.size(), key);
+        bulkRequests.put(key, text);
+    }
+
+    public HashMap<Object, String> performRequests() {
+        if(!initializedBulkMap || bulkRequests.size() == 0) return bulkRequests;
+        LineBuilder request = new LineBuilder();
+        for (Map.Entry<Object, String> individualRequest : bulkRequests.entrySet()) {
+            Integer key = bulkRequestsObjects.entrySet().stream().filter(connection -> connection.getValue().equals(individualRequest.getKey())).findFirst().map(Map.Entry::getKey).orElse(null);
+            request.append(key + "==" + individualRequest.getValue());
+        }
+        request.setLinebreakSymbol("||");
+        String[] results = translate(request.toString()).split(" ?\\|\\| ?");
+        for (String result : results) {
+            String[] splitted = result.split(" ?(?:==|(?:\\\\u003d){2}) ?", 2);
+            if (splitted.length >= 2)
+                bulkRequests.put(bulkRequestsObjects.get(Integer.parseInt(splitted[0])), splitted[1]);
+        }
+        clearRequests();
+        return bulkRequests;
+    }
+
+    public void clearRequests() {
+        initializedBulkMap = false;
     }
 
     public void setLanguages(String fromLanguage, String toLanguage) {

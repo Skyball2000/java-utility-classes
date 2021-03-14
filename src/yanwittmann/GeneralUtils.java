@@ -95,6 +95,27 @@ public class GeneralUtils {
         return array;
     }
 
+    public static String formatAsTable(ArrayList<ArrayList<String>> rows) {
+        int[] maxLengths = new int[rows.get(0).size()];
+        for (ArrayList<String> row : rows) {
+            for (int i = 0; i < row.size(); i++) {
+                maxLengths[i] = Math.max(maxLengths[i], row.get(i).length());
+            }
+        }
+
+        StringBuilder formatBuilder = new StringBuilder();
+        for (int maxLength : maxLengths) {
+            formatBuilder.append("%-").append(maxLength + 2).append("s");
+        }
+        String format = formatBuilder.toString();
+
+        StringBuilder result = new StringBuilder();
+        for (ArrayList<String> row : rows) {
+            result.append(String.format(format, row.toArray(new String[0]))).append("\n");
+        }
+        return result.toString();
+    }
+
     public static int randomNumber(int min, int max) {
         return min + (int) (Math.random() * ((max - min) + 1));
     }
