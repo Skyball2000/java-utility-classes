@@ -59,7 +59,14 @@ public class Configuration {
         return values.containsKey(key) ? values.get(key).replace("CFGEOL", "\n") : null;
     }
 
-    public HashMap<String, String> get() {
+    public String getOrDefault(String key, String def) {
+        key = prepareKey(key);
+        if (values.containsKey(key)) return values.get(key).replace("CFGEOL", "\n");
+        else set(key, def);
+        return null;
+    }
+
+    private HashMap<String, String> get() {
         return values;
     }
 

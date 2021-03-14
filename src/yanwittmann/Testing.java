@@ -1,27 +1,33 @@
 package yanwittmann;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Map;
 
 public class Testing {
 
     public static void main(String[] args) {
+        CountApi counter = new CountApi("yan", "test10");
+        FileUtils.setDisplayExceptions(true);
+        System.out.println(counter.create(true));
+        System.out.println(counter.info());
+
+    }
+
+    public static void translateTest() {
         GoogleTranslate translate = new GoogleTranslate();
         translate.setLanguages(GoogleTranslate.German, GoogleTranslate.French);
 
-        System.out.println(new PerformanceTest(40) {
+        System.out.println(new PerformanceTest(3) {
             @Override
             public void perform() {
-                translate.translate("Guten morgen, wie geht es ihnen?");
+                translate.addRequest("Eine frage", "Hallo wie geht es dir?");
+                translate.addRequest(1, "Dies ist ein zweiter Text");
+                translate.addRequest("Was esse ich gerne?", "Ich esse gerne Eis am Strand.");
+                for (Map.Entry<Object, String> entry : translate.performRequests().entrySet())
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
             }
-        }.start().getAverageResult());
-
-        System.out.println(new PerformanceTest(40) {
-            @Override
-            public void perform() {
-                translate.translate("Dies ist ein längerer Text. Ob das hier wohl länger brauchen wird? Das ist eine gute Frage. So wie die Forumsplattform.");
-            }
-        }.start().getAverageResult());
+        }.start().toString());
     }
 
     private static void visTest() {

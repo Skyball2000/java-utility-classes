@@ -24,21 +24,24 @@ public class LineBuilder {
     public LineBuilder() {
     }
 
-    public void append(String string) {
-        appendAny(string);
+    public LineBuilder append(String string) {
+        return appendAny(string);
     }
 
-    public void append(String[] string) {
+    public LineBuilder append(String[] string) {
         Arrays.stream(string).forEach(this::append);
+        return this;
     }
 
-    public void append(int integer) {
+    public LineBuilder append(int integer) {
         appendAny(integer);
+        return this;
     }
 
-    public void appendAny(Object value) {
+    public LineBuilder appendAny(Object value) {
         if (stringBuilder.length() > 0) stringBuilder.append(LINEBREAK);
         stringBuilder.append(value.toString());
+        return this;
     }
 
     public String toString() {
