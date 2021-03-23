@@ -7,10 +7,13 @@ import java.util.Map;
 public class Testing {
 
     public static void main(String[] args) {
-        CountApi counter = new CountApi("yan", "test10");
-        FileUtils.setDisplayExceptions(true);
-        System.out.println(counter.create(true));
-        System.out.println(counter.info());
+        CountApi counter = new CountApi("yan", "test");
+        System.out.println(counter.create(false));
+        System.out.println(counter.get());
+        System.out.println(counter.hit());
+        System.out.println(counter.get());
+        System.out.println(counter.set(4));
+        System.out.println(counter.get());
 
     }
 

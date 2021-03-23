@@ -1,11 +1,12 @@
 package yanwittmann;
 
 /**
- * Use this class to access the <a href="https://countapi.xyz/">https://countapi.xyz/</a> which serves as an online counter.<br>
+ * Use this class to access my database which serves as an online counter.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
 public class CountApi {
-    private final static String BASE_URL = "https://api.countapi.xyz";
+    private final static String BASE_URL = "http://yanwittmann.de/projects/countapi";
+    public final static String ERROR_STRING = "ERROR";
     public final static int DEFAULT_RETURN_VALUE = -1;
 
     private final String namespace;
@@ -16,26 +17,18 @@ public class CountApi {
         this.key = key;
     }
 
-    public Integer get() {
+    public int get() {
         try {
-            String response = performCall(BASE_URL + "/get/" + getKeyNamespace());
-            if (response.matches("\\{\"value\":(.+)}")) {
-                String extractedValue = response.replaceAll("\\{\"value\":(.+)}", "$1");
-                return Integer.parseInt(extractedValue);
-            }
+            return Integer.parseInt(performCall(BASE_URL + "/get.php?key=" + key + "&namespace=" + namespace));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return DEFAULT_RETURN_VALUE;
     }
 
-    public Integer hit() {
+    public int hit() {
         try {
-            String response = performCall(BASE_URL + "/hit/" + getKeyNamespace());
-            if (response.matches("\\{\"value\":(.+)}")) {
-                String extractedValue = response.replaceAll("\\{\"value\":(.+)}", "$1");
-                return Integer.parseInt(extractedValue);
-            }
+            return Integer.parseInt(performCall(BASE_URL + "/hit.php?key=" + key + "&namespace=" + namespace));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,27 +36,11 @@ public class CountApi {
     }
 
     public boolean set(int value) {
-        return !performCall(BASE_URL + "/set/" + getKeyNamespace() + "?value=" + value).contains("null");
+        return !performCall(BASE_URL + "/set.php?key=" + key + "&namespace=" + namespace + "&value=" + value).contains(ERROR_STRING);
     }
 
     public boolean create(boolean allowSet) {
-        return !performCall(BASE_URL + "/create?enable_reset=" + (allowSet ? 1 : 0) + "&key=" + key + "&namespace=" + namespace).contains("null");
-    }
-
-    public String info() {
-        return performCall(BASE_URL + "/info/" + getKeyNamespace());
-    }
-
-    private String keyNamespace = null;
-
-    public String getKeyNamespace() {
-        if (keyNamespace == null) {
-            if (key.equals(""))
-                keyNamespace = namespace;
-            else
-                keyNamespace = namespace + "/" + key;
-        }
-        return keyNamespace;
+        return !performCall(BASE_URL + "/create.php?set=" + (allowSet ? 1 : 0) + "&key=" + key + "&namespace=" + namespace).contains(ERROR_STRING);
     }
 
     public String getKey() {
@@ -78,6 +55,6 @@ public class CountApi {
         String[] response = FileUtils.getResponseURL(url);
         if (response != null && response.length != 0)
             return GeneralUtils.makeOneLine(response);
-        return "null";
+        return ERROR_STRING;
     }
 }
