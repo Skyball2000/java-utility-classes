@@ -1,6 +1,7 @@
 package yanwittmann;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +47,7 @@ public abstract class Log {
         log.add(text);
     }
 
-    public static void dump(String filename) {
+    public static void dump(String filename) throws IOException {
         if (filename.equals(""))
             filename = String.valueOf(new Timestamp(new Date().getTime())).replace(":", "-") + ".txt";
         else filename = filename + (filename.contains(".txt") ? "" : ".txt");

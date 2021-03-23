@@ -2,6 +2,7 @@ package yanwittmann;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -22,20 +23,6 @@ import java.util.zip.ZipOutputStream;
  */
 public abstract class FileUtils {
 
-    private static boolean displayExceptions = false;
-
-    public static void setDisplayExceptions(boolean displayExceptions) {
-        FileUtils.displayExceptions = displayExceptions;
-    }
-
-    public void displayExceptions() {
-        FileUtils.displayExceptions = true;
-    }
-
-    public void hideExceptions() {
-        FileUtils.displayExceptions = true;
-    }
-
     public static String getLastJavaFilePickLocation() {
         return lastJavaFilePickLocation;
     }
@@ -51,123 +38,69 @@ public abstract class FileUtils {
         return true;
     }
 
-    public static boolean writeFile(File file, ArrayList<String> lines) {
+    public static void writeFile(File file, ArrayList<String> lines) throws IOException {
         makeDirectories(file.getAbsolutePath().replace(file.getName(), ""));
-        return writeFile(file, lines.toArray(new String[0]));
+        writeFile(file, lines.toArray(new String[0]));
     }
 
-    public static boolean writeFile(File file, String[] lines) {
+    public static void writeFile(File file, String[] lines) throws IOException {
         makeDirectories(file.getAbsolutePath().replace(file.getName(), ""));
         BufferedWriter outputWriter;
-        try {
-            outputWriter = new BufferedWriter(new FileWriter(file));
-            for (String line : lines) {
-                outputWriter.write(line);
-                outputWriter.newLine();
-            }
-            outputWriter.flush();
-            outputWriter.close();
-            return true;
-        } catch (IOException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
-    }
-
-    public static boolean writeFile(File file, String line) {
-        makeDirectories(file.getAbsolutePath().replace(file.getName(), ""));
-        BufferedWriter outputWriter;
-        try {
-            outputWriter = new BufferedWriter(new FileWriter(file));
+        outputWriter = new BufferedWriter(new FileWriter(file));
+        for (String line : lines) {
             outputWriter.write(line);
-            outputWriter.flush();
-            outputWriter.close();
-            return true;
-        } catch (IOException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
+            outputWriter.newLine();
         }
+        outputWriter.flush();
+        outputWriter.close();
     }
 
-    public static String[] readFileToStringArray(File file) {
-        try {
-            return Files.readAllLines(file.toPath()).toArray(new String[0]);
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return null;
-        }
+    public static void writeFile(File file, String line) throws IOException {
+        makeDirectories(file.getAbsolutePath().replace(file.getName(), ""));
+        BufferedWriter outputWriter;
+        outputWriter = new BufferedWriter(new FileWriter(file));
+        outputWriter.write(line);
+        outputWriter.flush();
+        outputWriter.close();
     }
 
-    public static ArrayList<String> readFileToArrayList(File file) {
-        try {
-            return (ArrayList<String>) Files.readAllLines(file.toPath());
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return null;
-        }
+    public static String[] readFileToStringArray(File file) throws IOException {
+        return Files.readAllLines(file.toPath()).toArray(new String[0]);
     }
 
-    public static byte[] readFileToByteArray(File file) {
-        try {
-            return Files.readAllBytes(file.toPath());
-        } catch (IOException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return null;
-        }
+    public static ArrayList<String> readFileToArrayList(File file) throws IOException {
+        return (ArrayList<String>) Files.readAllLines(file.toPath());
     }
 
-    public static boolean writeFileFromByteArray(File file, byte[] array) {
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(array);
-            fos.close();
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static byte[] readFileToByteArray(File file) throws IOException {
+        return Files.readAllBytes(file.toPath());
     }
 
-    public static boolean copyFile(File sourceFile, File destinationFile) {
-        try {
-            Files.copy(sourceFile.toPath(), (destinationFile).toPath(), StandardCopyOption.REPLACE_EXISTING);
-            return true;
-        } catch (IOException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static void writeFileFromByteArray(File file, byte[] array) throws IOException {
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(array);
+        fos.close();
     }
 
-    public static boolean copyDirectory(File sourceDirectoryLocation, File destinationDirectoryLocation) {
-        return copyDirectory(sourceDirectoryLocation.getAbsolutePath(), destinationDirectoryLocation.getAbsolutePath());
+    public static void copyFile(File sourceFile, File destinationFile) throws IOException {
+        Files.copy(sourceFile.toPath(), (destinationFile).toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
-    private static boolean copyDirectory(String sourceDirectoryLocation, String destinationDirectoryLocation) {
-        try {
-            Files.walk(Paths.get(sourceDirectoryLocation))
-                    .forEach(source -> {
-                        Path destination = Paths.get(destinationDirectoryLocation, source.toString()
-                                .substring(sourceDirectoryLocation.length()));
-                        try {
-                            Files.copy(source, destination);
-                        } catch (IOException e) {
-                            if (displayExceptions)
-                                e.printStackTrace();
-                        }
-                    });
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static void copyDirectory(File sourceDirectoryLocation, File destinationDirectoryLocation) throws IOException {
+        copyDirectory(sourceDirectoryLocation.getAbsolutePath(), destinationDirectoryLocation.getAbsolutePath());
+    }
+
+    private static void copyDirectory(String sourceDirectoryLocation, String destinationDirectoryLocation) throws IOException {
+        Files.walk(Paths.get(sourceDirectoryLocation))
+                .forEach(source -> {
+                    Path destination = Paths.get(destinationDirectoryLocation, source.toString()
+                            .substring(sourceDirectoryLocation.length()));
+                    try {
+                        Files.copy(source, destination);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     public static boolean deleteDirectory(File directory) {
@@ -186,18 +119,12 @@ public abstract class FileUtils {
     }
 
     public static boolean deleteFilesInDirectory(File directory) {
-        try {
-            File[] listFiles = directory.listFiles();
-            if (listFiles == null) return false;
-            boolean deletedAll = true;
-            for (File file : listFiles)
-                if (!file.delete()) deletedAll = false;
-            return deletedAll;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+        File[] listFiles = directory.listFiles();
+        if (listFiles == null) return false;
+        boolean deletedAll = true;
+        for (File file : listFiles)
+            if (!file.delete()) deletedAll = false;
+        return deletedAll;
     }
 
     public static boolean fileExists(File file) {
@@ -214,43 +141,24 @@ public abstract class FileUtils {
      * @param file             The file to open.
      * @param workingDirectory The working directory the file should open as.
      */
-    public static boolean openFile(File file, File workingDirectory) {
-        try {
-            ProcessBuilder pb = new ProcessBuilder(file.getAbsoluteFile().toString());
-            pb.directory(workingDirectory.getAbsoluteFile());
-            pb.start();
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static void openFile(File file, File workingDirectory) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder(file.getAbsoluteFile().toString());
+        pb.directory(workingDirectory.getAbsoluteFile());
+        pb.start();
     }
 
-    public static boolean openFileUsingProcessBuilder(File file) {
-        try {
-            ProcessBuilder pb = new ProcessBuilder(file.getAbsolutePath());
-            pb.start();
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static void openFileUsingProcessBuilder(File file) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder(file.getAbsolutePath());
+        pb.start();
     }
 
-    public static boolean openFile(File file) {
-        try {
-            if (!Desktop.isDesktopSupported())
-                return false;
-            Desktop desktop = Desktop.getDesktop();
-            if (file.exists()) {
-                desktop.open(file);
-                return true;
-            }
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
+    public static boolean openFile(File file) throws IOException {
+        if (!Desktop.isDesktopSupported())
+            return false;
+        Desktop desktop = Desktop.getDesktop();
+        if (file.exists()) {
+            desktop.open(file);
+            return true;
         }
         return false;
     }
@@ -260,51 +168,36 @@ public abstract class FileUtils {
      * Thanks to <a href="https://stackoverflow.com/questions/6811522/changing-the-working-directory-of-command-from-java/6811578">Maurício Linhares</a>
      * and <a href="https://stackoverflow.com/questions/17985036/run-a-jar-file-from-java-program">Aniket Thakur</a> for helping out with this.
      */
-    public static boolean openJar(String jar, String path, String[] args) {
-        try {
-            File pathToExecutable = new File(jar);
-            String[] args2 = new String[args.length + 3];
-            args2[0] = "java";
-            args2[1] = "-jar";
-            args2[2] = pathToExecutable.getAbsolutePath();
-            System.arraycopy(args, 0, args2, 3, args2.length - 3);
-            ProcessBuilder builder = new ProcessBuilder(args2);
-            builder.directory(new File(path).getAbsoluteFile());
-            builder.redirectErrorStream(true);
-            builder.start();
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static void openJar(String jar, String path, String[] args) throws IOException {
+        File pathToExecutable = new File(jar);
+        String[] args2 = new String[args.length + 3];
+        args2[0] = "java";
+        args2[1] = "-jar";
+        args2[2] = pathToExecutable.getAbsolutePath();
+        System.arraycopy(args, 0, args2, 3, args2.length - 3);
+        ProcessBuilder builder = new ProcessBuilder(args2);
+        builder.directory(new File(path).getAbsoluteFile());
+        builder.redirectErrorStream(true);
+        builder.start();
     }
 
-    public static boolean pack(File sourceDirPath, File zipFilePath) {
-        try {
-            deleteFile(zipFilePath);
-            Path p = Files.createFile(zipFilePath.toPath());
-            try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
-                Path pp = sourceDirPath.toPath();
-                Files.walk(pp)
-                        .filter(path -> !Files.isDirectory(path))
-                        .forEach(path -> {
-                            ZipEntry zipEntry = new ZipEntry(pp.relativize(path).toString());
-                            try {
-                                zs.putNextEntry(zipEntry);
-                                Files.copy(path, zs);
-                                zs.closeEntry();
-                            } catch (IOException e) {
-                                if (displayExceptions)
-                                    e.printStackTrace();
-                            }
-                        });
-            }
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
+    public static void pack(File sourceDirPath, File zipFilePath) throws IOException {
+        deleteFile(zipFilePath);
+        Path p = Files.createFile(zipFilePath.toPath());
+        try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
+            Path pp = sourceDirPath.toPath();
+            Files.walk(pp)
+                    .filter(path -> !Files.isDirectory(path))
+                    .forEach(path -> {
+                        ZipEntry zipEntry = new ZipEntry(pp.relativize(path).toString());
+                        try {
+                            zs.putNextEntry(zipEntry);
+                            Files.copy(path, zs);
+                            zs.closeEntry();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
         }
     }
 
@@ -352,45 +245,35 @@ public abstract class FileUtils {
         return destFile;
     }
 
-    public static boolean isArchive(File file) {
+    public static boolean isArchive(File file) throws IOException {
         int fileSignature = 0;
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
-            fileSignature = raf.readInt();
-        } catch (IOException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-        }
+        RandomAccessFile raf = new RandomAccessFile(file, "r");
+        fileSignature = raf.readInt();
         return fileSignature == 0x504B0304 || fileSignature == 0x504B0506 || fileSignature == 0x504B0708;
     }
 
-    public static long fileSize(File filename) {
-        return filename.length();
+    public static long fileSize(File file) {
+        return file.length();
     }
 
-    public static int onlineFileSize(String url) {
+    public static int onlineFileSize(String url) throws MalformedURLException {
+        URL url1 = new URL(url);
+        URLConnection conn = null;
         try {
-            URL url1 = new URL(url);
-            URLConnection conn = null;
-            try {
-                conn = url1.openConnection();
-                if (conn != null) {
-                    ((HttpURLConnection) conn).setRequestMethod("HEAD");
-                }
-                assert conn != null;
-                conn.getInputStream();
-                return conn.getContentLength();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
-                if (conn instanceof HttpURLConnection) {
-                    ((HttpURLConnection) conn).disconnect();
-                }
+            conn = url1.openConnection();
+            if (conn != null) {
+                ((HttpURLConnection) conn).setRequestMethod("HEAD");
             }
-        } catch (MalformedURLException e) {
-            if (displayExceptions)
-                e.printStackTrace();
+            assert conn != null;
+            conn.getInputStream();
+            return conn.getContentLength();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (conn instanceof HttpURLConnection) {
+                ((HttpURLConnection) conn).disconnect();
+            }
         }
-        return -1;
     }
 
     public static ArrayList<File> getFiles(File directory) {
@@ -424,13 +307,7 @@ public abstract class FileUtils {
         else chooser = new JFileChooser(lastJavaFilePickLocation);
         chooser.showOpenDialog(null);
         lastJavaFilePickLocation = chooser.getSelectedFile().getAbsolutePath();
-        try {
-            return chooser.getSelectedFile();
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return null;
-        }
+        return chooser.getSelectedFile();
     }
 
     public static File[] windowsFilePicker() {
@@ -443,105 +320,67 @@ public abstract class FileUtils {
         return file.getName();
     }
 
-    public static String[] getResponseFromURL(String url) {
+    public static String[] getResponseFromURL(String url) throws IOException {
         url = url.replace(" ", "%20");
         ArrayList<String> lines = new ArrayList<>();
-        try {
-            URL urlObject = new URL(url);
-            BufferedReader read = new BufferedReader(new InputStreamReader(urlObject.openStream()));
-            String i;
-            while ((i = read.readLine()) != null)
-                lines.add(i);
-            read.close();
-            String[] result = new String[lines.size()];
-            for (int j = 0; j < lines.size(); j++)
-                result[j] = lines.get(j);
-            return result;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return null;
-        }
+        URL urlObject = new URL(url);
+        BufferedReader read = new BufferedReader(new InputStreamReader(urlObject.openStream()));
+        String i;
+        while ((i = read.readLine()) != null)
+            lines.add(i);
+        read.close();
+        String[] result = new String[lines.size()];
+        for (int j = 0; j < lines.size(); j++)
+            result[j] = lines.get(j);
+        return result;
     }
 
-    public static String[] getResponseURL(String url) {
+    public static String[] getResponseURL(String url) throws IOException {
         url = url.replace(" ", "%20");
         ArrayList<String> lines = new ArrayList<>();
-        try {
-            URL urlObject = new URL(url);
-            URLConnection request = urlObject.openConnection();
-            request.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
-            request.setRequestProperty("Content-Type", "text/plain; utf-8");
-            request.connect();
-            BufferedReader read = new BufferedReader(new InputStreamReader((InputStream) request.getContent()));
-            String i;
-            while ((i = read.readLine()) != null)
-                lines.add(i);
-            read.close();
-            String[] result = new String[lines.size()];
-            for (int j = 0; j < lines.size(); j++)
-                result[j] = lines.get(j);
-            return result;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return null;
-        }
+        URL urlObject = new URL(url);
+        URLConnection request = urlObject.openConnection();
+        request.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+        request.setRequestProperty("Content-Type", "text/plain; utf-8");
+        request.connect();
+        BufferedReader read = new BufferedReader(new InputStreamReader((InputStream) request.getContent()));
+        String i;
+        while ((i = read.readLine()) != null)
+            lines.add(i);
+        read.close();
+        String[] result = new String[lines.size()];
+        for (int j = 0; j < lines.size(); j++)
+            result[j] = lines.get(j);
+        return result;
     }
 
-    public static boolean downloadFile(File file, String url) {
-        try {
-            return downloadFile(file, new URL(url));
-        } catch (MalformedURLException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static void downloadFile(File file, String url) throws IOException {
+        downloadFile(file, new URL(url));
     }
 
-    public static boolean downloadFile(File file, URL url) {
+    public static void downloadFile(File file, URL url) throws IOException {
         BufferedInputStream in;
         FileOutputStream fout;
-        try {
-            in = new BufferedInputStream(url.openStream());
-            fout = new FileOutputStream(file);
+        in = new BufferedInputStream(url.openStream());
+        fout = new FileOutputStream(file);
 
-            final byte[] data = new byte[1024];
-            int count;
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                fout.write(data, 0, count);
-            }
-            in.close();
-            fout.close();
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
+        final byte[] data = new byte[1024];
+        int count;
+        while ((count = in.read(data, 0, 1024)) != -1) {
+            fout.write(data, 0, count);
         }
+        in.close();
+        fout.close();
     }
 
-    public static boolean connectedToInternet() {
-        try {
-            URL url = new URL("http://www.google.com");
-            URLConnection connection = url.openConnection();
-            connection.connect();
-            return true;
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return false;
-        }
+    public static void connectedToInternet() throws IOException {
+        URL url = new URL("http://www.google.com");
+        URLConnection connection = url.openConnection();
+        connection.connect();
     }
 
-    public static Font getFont(File file) {
-        try {
-            return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(30f);
-        } catch (Exception e) {
-            if (displayExceptions)
-                e.printStackTrace();
-            return null;
-        }
+    public static Font getFont(File file) throws IOException, FontFormatException {
+        return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(30f);
     }
 
     private static final HashMap<String, Timer> watchFiles = new HashMap<>();
@@ -591,25 +430,15 @@ public abstract class FileUtils {
         return file.lastModified();
     }
 
-    public static void setLastModified(File file, long time) {
-        try {
-            Files.setLastModifiedTime(file.toPath(), FileTime.fromMillis(time));
-        } catch (IOException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-        }
+    public static void setLastModified(File file, long time) throws IOException {
+        Files.setLastModifiedTime(file.toPath(), FileTime.fromMillis(time));
     }
 
     public static boolean isHidden(File file) {
         return file.isHidden();
     }
 
-    public static void setHidden(File file, boolean hidden) {
-        try {
-            Files.setAttribute(file.toPath(), "dos:hidden", hidden, LinkOption.NOFOLLOW_LINKS);
-        } catch (IOException e) {
-            if (displayExceptions)
-                e.printStackTrace();
-        }
+    public static void setHidden(File file, boolean hidden) throws IOException {
+        Files.setAttribute(file.toPath(), "dos:hidden", hidden, LinkOption.NOFOLLOW_LINKS);
     }
 }

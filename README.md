@@ -6,6 +6,8 @@ A variety of java classes that make coding easier.
 
 - **FileUtils**  
   A wide variety of functions related to reading, writing and watching files.
+- **File**  
+  A better file object that allows you to perform extra actions related to files.
 - **GeneralUtils**  
   Plenty of functions that are useful for plenty of different cases, such as getting the screen size, moving the mouse
   cursor, string functions, clipboard actions and much more.
@@ -36,8 +38,7 @@ A variety of java classes that make coding easier.
 - **Pair**  
   Two values of any class stored in one object.
 - **CountApi**  
-  Use this class to access the [https://countapi.xyz/](https://countapi.xyz/) which serves as an online
-  counter.
+  Use this class to access the yanwittmann.de database which serves as an online counter.
 
 This is mainly a collection of code snippets or classes that I collected over the past few years that I sometimes need
 to reuse.  

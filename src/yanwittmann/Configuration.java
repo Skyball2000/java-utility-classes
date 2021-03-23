@@ -1,6 +1,7 @@
 package yanwittmann;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,18 +16,18 @@ public class Configuration {
     private final File file;
     private boolean autosave = true;
 
-    public Configuration(File file) {
+    public Configuration(File file) throws IOException {
         this.file = file;
         load();
     }
 
-    public Configuration(File file, boolean autosave) {
+    public Configuration(File file, boolean autosave) throws IOException {
         this.file = file;
         this.autosave = autosave;
         load();
     }
 
-    private void load() {
+    private void load() throws IOException {
         if (file.exists()) {
             ArrayList<String> input = FileUtils.readFileToArrayList(file);
             if (input == null) return;
@@ -45,13 +46,25 @@ public class Configuration {
     public void set(String key, String value) {
         key = prepareKey(key);
         values.put(key, value.replace("\n", "CFGEOL"));
-        if (autosave) save();
+        if (autosave) {
+            try {
+                save();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void remove(String key) {
         key = prepareKey(key);
         values.remove(key);
-        if (autosave) save();
+        if (autosave) {
+            try {
+                save();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public String get(String key) {
@@ -78,7 +91,7 @@ public class Configuration {
         this.autosave = autosave;
     }
 
-    public void save() {
+    public void save() throws IOException {
         LineBuilder builder = new LineBuilder();
         for (Map.Entry<String, String> value : values.entrySet())
             builder.append(value.getKey() + ":" + value.getValue());

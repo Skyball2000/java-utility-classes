@@ -1,20 +1,13 @@
 package yanwittmann;
 
-import java.io.File;
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.Map;
 
 public class Testing {
 
-    public static void main(String[] args) {
-        CountApi counter = new CountApi("yan", "test");
-        System.out.println(counter.create(false));
-        System.out.println(counter.get());
-        System.out.println(counter.hit());
-        System.out.println(counter.get());
-        System.out.println(counter.set(4));
-        System.out.println(counter.get());
-
+    public static void main(String[] args) throws IOException {
+        File file = new File("D:\\files\\create\\programming\\projects\\test.php");
+        file.readToArrayList().forEach(System.out::println);
     }
 
     public static void translateTest() {
@@ -33,7 +26,7 @@ public class Testing {
         }.start().toString());
     }
 
-    private static void visTest() {
+    private static void visTest() throws IOException {
         VisJS vis = new VisJS("myNetwork", 1200, 800);
 
         vis.addNodeType(0, new VisJS.NodeTypeBuilder().setShape(VisJS.NodeTypeBuilder.SHAPE_ELLIPSE).setShadow("#848c99", 10));

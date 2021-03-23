@@ -1,5 +1,6 @@
 package yanwittmann;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,11 +15,15 @@ public class GoogleTranslate {
     private String toLanguage = "de";
 
     public String translate(String text) {
-        String[] response = FileUtils.getResponseURL(prepareTranslateURL(text));
-        if (response != null && response.length != 0) {
-            String asOneLine = GeneralUtils.makeOneLine(response);
-            if (asOneLine.matches(TRANSLATE_RESULT_REGEX))
-                return asOneLine.replaceAll(TRANSLATE_RESULT_REGEX, "$1");
+        try {
+            String[] response = FileUtils.getResponseURL(prepareTranslateURL(text));
+            if (response.length != 0) {
+                String asOneLine = GeneralUtils.makeOneLine(response);
+                if (asOneLine.matches(TRANSLATE_RESULT_REGEX))
+                    return asOneLine.replaceAll(TRANSLATE_RESULT_REGEX, "$1");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return text;
     }
@@ -44,7 +49,7 @@ public class GoogleTranslate {
     }
 
     public HashMap<Object, String> performRequests() {
-        if(!initializedBulkMap || bulkRequests.size() == 0) return bulkRequests;
+        if (!initializedBulkMap || bulkRequests.size() == 0) return bulkRequests;
         LineBuilder request = new LineBuilder();
         for (Map.Entry<Object, String> individualRequest : bulkRequests.entrySet()) {
             Integer key = bulkRequestsObjects.entrySet().stream().filter(connection -> connection.getValue().equals(individualRequest.getKey())).findFirst().map(Map.Entry::getKey).orElse(null);

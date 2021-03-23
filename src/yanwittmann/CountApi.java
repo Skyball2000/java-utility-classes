@@ -1,5 +1,7 @@
 package yanwittmann;
 
+import java.io.IOException;
+
 /**
  * Use this class to access my database which serves as an online counter.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
@@ -52,9 +54,13 @@ public class CountApi {
     }
 
     private String performCall(String url) {
-        String[] response = FileUtils.getResponseURL(url);
-        if (response != null && response.length != 0)
-            return GeneralUtils.makeOneLine(response);
+        try {
+            String[] response = FileUtils.getResponseURL(url);
+            if (response.length != 0)
+                return GeneralUtils.makeOneLine(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return ERROR_STRING;
     }
 }
