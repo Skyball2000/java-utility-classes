@@ -1,4 +1,4 @@
-package yanwittmann;
+package yanwittmann.types;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

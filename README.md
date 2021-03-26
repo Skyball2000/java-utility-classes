@@ -25,8 +25,6 @@ A variety of java classes that make coding easier.
   Use this class to measure the total and average time that a certain operation needs for executing a certain amount of
   times.  
   Use this to compare different methods for executing a certain task.
-- **Log**  
-  A simple logger class.
 - **Popup**  
   Several popup actions for buttons, dropDowns, text input and displaying messages.
 - **Sleep**  
@@ -39,6 +37,8 @@ A variety of java classes that make coding easier.
   Two values of any class stored in one object.
 - **CountApi**  
   Use this class to access the yanwittmann.de database which serves as an online counter.
+- **Notifications**  
+  Extend AbstractNotification to create a custom notification. An example can be found in BlurNotification.
 
 This is mainly a collection of code snippets or classes that I collected over the past few years that I sometimes need
 to reuse.  

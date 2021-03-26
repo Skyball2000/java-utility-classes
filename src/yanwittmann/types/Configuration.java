@@ -1,4 +1,6 @@
-package yanwittmann;
+package yanwittmann.types;
+
+import yanwittmann.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;

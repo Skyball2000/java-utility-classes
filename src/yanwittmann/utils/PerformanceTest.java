@@ -1,4 +1,4 @@
-package yanwittmann;
+package yanwittmann.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

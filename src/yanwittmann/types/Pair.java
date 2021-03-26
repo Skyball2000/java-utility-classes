@@ -1,4 +1,4 @@
-package yanwittmann;
+package yanwittmann.types;
 
 /**
  * Two values of any class stored in one object.<br>

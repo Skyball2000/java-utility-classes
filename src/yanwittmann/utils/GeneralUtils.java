@@ -1,4 +1,4 @@
-package yanwittmann;
+package yanwittmann.utils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +18,7 @@ import java.util.Arrays;
  * A wide variety of functions you can use.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
-public class GeneralUtils {
+public abstract class GeneralUtils {
 
     private boolean isInit = false;
 

@@ -1,4 +1,8 @@
-package yanwittmann;
+package yanwittmann.api;
+
+import yanwittmann.utils.FileUtils;
+import yanwittmann.utils.GeneralUtils;
+import yanwittmann.types.LineBuilder;
 
 import java.io.IOException;
 import java.util.HashMap;

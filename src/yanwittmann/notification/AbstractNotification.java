@@ -1,6 +1,6 @@
 package yanwittmann.notification;
 
-import yanwittmann.Sleep;
+import yanwittmann.utils.Sleep;
 
 import javax.swing.*;
 import java.awt.*;

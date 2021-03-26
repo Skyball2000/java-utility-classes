@@ -1,4 +1,4 @@
-package yanwittmann;
+package yanwittmann.utils;
 
 import javax.swing.*;
 
@@ -6,7 +6,7 @@ import javax.swing.*;
  * Several popup actions for buttons, dropDowns, text input and displaying messages.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
-public class Popup {
+public abstract class Popup {
     public static String dropDown(String title, String message, String[] choice) {
         return (String) JOptionPane.showInputDialog(null, message, title, JOptionPane.PLAIN_MESSAGE, null, choice, choice[0]);
     }

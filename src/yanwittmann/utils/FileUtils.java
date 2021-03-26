@@ -1,4 +1,4 @@
-package yanwittmann;
+package yanwittmann.utils;
 
 import javax.swing.*;
 import java.awt.*;

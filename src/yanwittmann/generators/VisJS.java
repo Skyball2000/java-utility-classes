@@ -1,4 +1,6 @@
-package yanwittmann;
+package yanwittmann.generators;
+
+import yanwittmann.types.LineBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;

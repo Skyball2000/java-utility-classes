@@ -1,4 +1,4 @@
-package yanwittmann;
+package yanwittmann.utils;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Use this class to evaluate mathematical expressions given as strings.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
  */
-public class MathEval {
+public abstract class MathEval {
 
     /**
      * Returns the result of the expression as a double value.<br>

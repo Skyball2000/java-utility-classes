@@ -1,7 +1,5 @@
 package yanwittmann.notification;
 
-import yanwittmann.GeneralUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
