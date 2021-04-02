@@ -35,10 +35,20 @@ A variety of java classes that make coding easier.
   Works just as a StringBuilder, but every time you append to the LineBuilder, a new line is created.
 - **Pair**  
   Two values of any class stored in one object.
+- **Set**  
+  A basic implementation of a set that does not allow adding the same object more than once.
 - **CountApi**  
   Use this class to access the yanwittmann.de database which serves as an online counter.
 - **Notifications**  
   Extend AbstractNotification to create a custom notification. An example can be found in BlurNotification.
+- **Point**  
+  A simple point class with two to three dimensions.
+- **UDPClient**  
+  A simple UDP client that can send string messages to a host with an IP.
+- **UDPServer**  
+  A simple UDP server that can receive messages. It will send the identical received string back as a confirmation.
+- **UDPListener**  
+  Add this listener to the UDPServer to process incoming messages.
 
 This is mainly a collection of code snippets or classes that I collected over the past few years that I sometimes need
 to reuse.  
