@@ -49,6 +49,8 @@ A variety of java classes that make coding easier.
   A simple UDP server that can receive messages. It will send the identical received string back as a confirmation.
 - **UDPListener**  
   Add this listener to the UDPServer to process incoming messages.
+- **AI!**  
+  Multiple classes that allow you to create a (very basic) neural network that can barely understand basic principles!
 
 This is mainly a collection of code snippets or classes that I collected over the past few years that I sometimes need
 to reuse.  
