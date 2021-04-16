@@ -6,6 +6,7 @@ import yanwittmann.types.File;
 import yanwittmann.types.LineBuilder;
 import yanwittmann.utils.GeneralUtils;
 import yanwittmann.utils.Log;
+import yanwittmann.utils.Progress;
 
 import java.io.IOException;
 import java.util.*;
@@ -76,25 +77,26 @@ public class Network {
     }
 
     public void train(int amount) {
-        GeneralUtils.printProgressBar(0, amount);
+        Progress bar = new Progress(amount, 50);
+        bar.updateAndPrint(0);
         String currentScoreBarText = "";
         for (int i = 0; i < amount; i++) {
             double beforeScore = train();
             permute();
             double afterScore = train();
             if (i % 100 == 0 && i != 0) {
-                GeneralUtils.printProgressBar(i, amount);
+                bar.updateAndPrint(i);
                 System.out.print(currentScoreBarText);
             }
             if (beforeScore < afterScore) {
                 undoPermute();
             } else {
-                GeneralUtils.printProgressBar(i, amount);
+                bar.updateAndPrint(i);
                 currentScoreBarText = "  score: [" + afterScore + "]                                ";
                 System.out.print(currentScoreBarText);
             }
         }
-        GeneralUtils.printProgressBar(amount, amount);
+        bar.updateAndPrint(amount);
         System.out.print("                                         ");
     }
 

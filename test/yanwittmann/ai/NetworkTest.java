@@ -8,13 +8,17 @@ import yanwittmann.types.File;
 import yanwittmann.types.LineBuilder;
 import yanwittmann.utils.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Random;
 
 public class NetworkTest {
 
     private static int size = 100, length = 4;
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
 
     @Test
     public void visTest(File networkFile, File visFile) throws IOException {
@@ -41,8 +45,14 @@ public class NetworkTest {
         askQuestionsTest(network);
     }
 
+    public static void main(String[] args) throws IOException {
+        new NetworkTest().networkTrainTest();
+    }
+
     @Test
-    public void networkTrainTest(int size, int length) throws IOException {
+    public void networkTrainTest() throws IOException {
+        createDataset();
+
         Network network = new Network();
 
         network.setInputLayer(new Layer(length));
@@ -65,7 +75,7 @@ public class NetworkTest {
         network.printTrainingResults();
         askQuestionsTest(network);
 
-        network.save(new File("res/networks/test 4.ntw"));
+        //network.save(new File("res/networks/test 4.ntw"));
     }
 
     @Test
@@ -179,7 +189,7 @@ public class NetworkTest {
 
     private final static Random random = new Random();
 
-    private static void createDataset(int size, int length) throws IOException {
+    private static void createDataset() throws IOException {
         LineBuilder lines = new LineBuilder();
         for (int i = 0; i < size; i++) lines.append(generateDatasetLine(length));
         new File("res/training/symbols_" + size + "_" + length + ".txt").write(lines.toString());

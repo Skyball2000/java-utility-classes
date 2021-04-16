@@ -308,28 +308,4 @@ public abstract class GeneralUtils {
 
         return bimage;
     }
-
-    public static void printProgressBar(int currentValue, int maxValue) {
-        System.out.printf("\r%s", generateProgressBar(currentValue, maxValue));
-    }
-
-    public static String generateProgressBar(int currentValue, int maxValue) {
-        int progressBarLength = 33;
-        int currentProgressBarIndex = (int) Math.ceil(((double) progressBarLength / maxValue) * currentValue);
-        String formattedPercent = String.format(" %5.1f %% ", (100 * currentProgressBarIndex) / (double) progressBarLength);
-        int percentStartIndex = ((progressBarLength - formattedPercent.length()) / 2);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int progressBarIndex = 0; progressBarIndex < progressBarLength; progressBarIndex++) {
-            if (progressBarIndex <= percentStartIndex - 1
-                    || progressBarIndex >= percentStartIndex + formattedPercent.length()) {
-                sb.append(currentProgressBarIndex <= progressBarIndex ? " " : "=");
-            } else if (progressBarIndex == percentStartIndex) {
-                sb.append(formattedPercent);
-            }
-        }
-        sb.append("]");
-        return sb.toString();
-    }
 }

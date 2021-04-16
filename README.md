@@ -51,6 +51,8 @@ A variety of java classes that make coding easier.
   Add this listener to the UDPServer to process incoming messages.
 - **AI!**  
   Multiple classes that allow you to create a (very basic) neural network that can barely understand basic principles!
+  
+... and a lot more! Check the contained JavaDoc to see all the library has to offer.
 
 This is mainly a collection of code snippets or classes that I collected over the past few years that I sometimes need
 to reuse.  
