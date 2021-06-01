@@ -5,6 +5,7 @@ import javax.swing.*;
 /**
  * Several popup actions for buttons, dropDowns, text input and displaying messages.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public abstract class Popup {

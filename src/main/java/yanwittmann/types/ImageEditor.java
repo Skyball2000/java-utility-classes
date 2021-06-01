@@ -9,6 +9,7 @@ import java.io.IOException;
 /**
  * This class is still work in progress, but can be used to read an image file and edit individual pixels.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public class ImageEditor {
@@ -108,7 +109,7 @@ public class ImageEditor {
         return image.getHeight();
     }
 
-    //https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon; Thanks to trolologuy!
+    // https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon; Thanks to trolologuy!
     public void scale(int width, int height) {
         image = toBufferedImage(image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH), false);
     }
@@ -120,7 +121,7 @@ public class ImageEditor {
 
         BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), usesAlpha ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB);
 
-        // Draw the image on to the buffered image
+        // draw the image on to the buffered image
         Graphics2D bGr = bimage.createGraphics();
         bGr.drawImage(img, 0, 0, null);
         bGr.dispose();

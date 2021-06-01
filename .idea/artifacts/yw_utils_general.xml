@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yw-utils-general">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="yw-utils-general.jar">
+      <element id="directory" name="yanwittmann">
+        <element id="directory" name="utils">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/Sleep.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/GeneralUtils.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/Popup.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

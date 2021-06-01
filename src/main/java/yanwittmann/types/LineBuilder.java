@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 /**
  * Works just as a StringBuilder, but every time you append to the LineBuilder, a new line is created.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann<br>
  * @see StringBuilder StringBuilder
  */

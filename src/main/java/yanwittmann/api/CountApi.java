@@ -1,6 +1,6 @@
 package yanwittmann.api;
 
-import yanwittmann.utils.FileUtils;
+import yanwittmann.file.FileUtils;
 import yanwittmann.utils.GeneralUtils;
 
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.io.IOException;
 /**
  * Use this class to access my database which serves as an online counter.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public class CountApi {

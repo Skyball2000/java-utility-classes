@@ -1,6 +1,6 @@
 package yanwittmann.notification;
 
-import yanwittmann.blur.GaussianFilter;
+import huxtable.blur.GaussianFilter;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -10,6 +10,7 @@ import java.awt.image.RescaleOp;
 /**
  * Utils that are being used by package notification classes.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 class NotificationUtils {

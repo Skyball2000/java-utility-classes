@@ -17,6 +17,7 @@ import java.util.Arrays;
 /**
  * A wide variety of functions you can use.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public abstract class GeneralUtils {
@@ -224,7 +225,7 @@ public abstract class GeneralUtils {
         try {
             Desktop desktop;
             if (Desktop.isDesktopSupported()
-                    && (desktop = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
+                && (desktop = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
                 URI mailto = new URI(url);
                 desktop.mail(mailto);
             }

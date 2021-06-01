@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yw-utils-test">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="yw-utils-test.jar">
+      <element id="directory" name="yanwittmann">
+        <element id="directory" name="utils">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/PerformanceTest.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,39 @@
+package yanwittmann.visjs;
+
+import org.junit.jupiter.api.Test;
+import yanwittmann.file.File;
+import yanwittmann.file.FileUtils;
+import yanwittmann.utils.GeneralUtils;
+
+import java.io.IOException;
+
+public class VisJSTest {
+
+    @Test
+    public void createNetworkTest() throws IOException {
+        VisJS vis = new VisJS("myNetwork", 1200, 800);
+
+        vis.addNodeType(0, new VisJS.NodeTypeBuilder().setShape(VisJS.NodeTypeBuilder.SHAPE_ELLIPSE).setShadow("#848c99", 10));
+
+        int amountNodes = 10;
+        for (int i = 1; i <= amountNodes; i++) {
+            vis.addNode("node " + i, 0);
+        }
+        for (int i = 0; i < amountNodes; i++) {
+            vis.addEdge("node " + GeneralUtils.randomNumber(1, amountNodes), "node " + i, "title " + i, true);
+            vis.addEdge("node " + GeneralUtils.randomNumber(1, amountNodes), "node " + i, "title " + i, true);
+            vis.addEdge("node " + GeneralUtils.randomNumber(1, amountNodes), "node " + i, "title " + i, true);
+            vis.addEdge("node " + GeneralUtils.randomNumber(1, amountNodes), "node " + i, "title " + i, true);
+            vis.addEdge("node " + GeneralUtils.randomNumber(1, amountNodes), "node " + i, "title " + i, true);
+        }
+
+        vis.setOption(VisJS.EDGE_ARROW_DIRECTION, VisJS.EDGE_ARROW_TO);
+        vis.setOption(VisJS.EDGE_DASHES, true);
+        vis.setOption(VisJS.EDGE_SHADOW, true);
+        vis.setOption(VisJS.EDGE_SMOOTH, true);
+        vis.setOption(VisJS.EDGE_LENGTH, 200);
+        vis.setOption(VisJS.PHYSICS_SOLVER, VisJS.PHYSICS_SOLVER_FORCE_ATLAS_2_BASED);
+
+        FileUtils.writeFile(new File("out.html"), vis.generate().toArray(new String[0]));
+    }
+}

@@ -1,8 +1,8 @@
 package yanwittmann.api;
 
-import yanwittmann.utils.FileUtils;
-import yanwittmann.utils.GeneralUtils;
 import yanwittmann.types.LineBuilder;
+import yanwittmann.file.FileUtils;
+import yanwittmann.utils.GeneralUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,6 +12,7 @@ import java.util.Map;
  * Use an object of this class to translate a text using the Google Translate API.<br>
  * Use bulk requests to speed up the translation process and to prevent error 429 (you can only perform a certain amount of requests in a time window).<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public class GoogleTranslate {

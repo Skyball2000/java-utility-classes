@@ -7,14 +7,14 @@ import java.awt.geom.RoundRectangle2D;
 
 class TextBubbleBorder extends AbstractBorder {
 
-    private Color color;
+    private final Color color;
     private int thickness = 4;
     private int radii = 8;
     private int pointerSize = 7;
     private Insets insets = null;
     private BasicStroke stroke = null;
-    private int strokePad;
-    private int pointerPad = 4;
+    private final int strokePad;
+    private final int pointerPad = 4;
     private boolean left = true;
     RenderingHints hints;
 

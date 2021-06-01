@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yw-utils-api">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="yw-utils-api.jar">
+      <element id="directory" name="yanwittmann">
+        <element id="directory" name="api">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/api/CountApi.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/api/GoogleTranslate.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

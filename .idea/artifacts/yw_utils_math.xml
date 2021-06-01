@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yw-utils-math">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="yw-utils-math.jar">
+      <element id="directory" name="yanwittmann">
+        <element id="directory" name="math">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/math/MathEval$IllegalCharacterException.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/math/MathEval$InvalidOperationException.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/math/MathEval$MathEvalException.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/math/MathEval$RecursiveException.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/math/MathEval$UnbalancedBracketsException.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/math/MathEval.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yw-utils-log">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="yw-utils-log.jar">
+      <element id="directory" name="yanwittmann">
+        <element id="directory" name="log">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/log/Log$DumpedLog.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/log/Log.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/log/Progress.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

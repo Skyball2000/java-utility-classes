@@ -1,7 +1,7 @@
 package yanwittmann.api;
 
 import org.junit.jupiter.api.Test;
-import yanwittmann.utils.Log;
+import yanwittmann.log.Log;
 import yanwittmann.utils.PerformanceTest;
 
 import java.util.Map;

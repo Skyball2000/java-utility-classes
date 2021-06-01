@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import yanwittmann.ai.provider.DataProvider;
 import yanwittmann.ai.provider.LineTextDataProvider;
 import yanwittmann.ai.provider.PhraseTextDataProvider;
-import yanwittmann.types.File;
+import yanwittmann.file.File;
 import yanwittmann.types.LineBuilder;
-import yanwittmann.utils.Log;
+import yanwittmann.log.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

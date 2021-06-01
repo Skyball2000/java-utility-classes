@@ -1,5 +1,7 @@
 package yanwittmann.utils;
 
+import yanwittmann.log.Progress;
+
 class ProgressTest {
 
     public static void main(String[] args) {

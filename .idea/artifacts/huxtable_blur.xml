@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="huxtable-blur">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="huxtable-blur.jar">
+      <element id="directory" name="huxtable">
+        <element id="directory" name="blur">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/AbstractBufferedImageOp.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/BoxBlurFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/ConvolveFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/GaussianFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/GlowFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/ImageMath.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/MotionBlurFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/MotionBlurOp.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/PixelUtils.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/ShadowFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/SmartBlurFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/UnsharpFilter.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/huxtable/blur/VariableBlurFilter.class" />
+        </element>
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/huxtable-copyright-license.txt" />
+    </root>
+  </artifact>
+</component>

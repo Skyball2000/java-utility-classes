@@ -1,6 +1,6 @@
 package yanwittmann.types;
 
-import yanwittmann.utils.FileUtils;
+import yanwittmann.file.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 /**
  * Easily store string values in a file using a key-value pair.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public class Configuration {
@@ -31,7 +32,7 @@ public class Configuration {
     }
 
     private void load() throws IOException {
-        if (file.exists()) {
+        if (file != null && file.exists()) {
             ArrayList<String> input = FileUtils.readFileToArrayList(file);
             if (input == null) return;
             for (String line : input) {
@@ -49,25 +50,23 @@ public class Configuration {
     public void set(String key, String value) {
         key = prepareKey(key);
         values.put(key, value.replace("\n", "CFGEOL"));
-        if (autosave) {
+        if (autosave)
             try {
                 save();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
     }
 
     public void remove(String key) {
         key = prepareKey(key);
         values.remove(key);
-        if (autosave) {
+        if (autosave)
             try {
                 save();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
     }
 
     public String get(String key) {

@@ -2,6 +2,8 @@ package yanwittmann.utils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import yanwittmann.log.Log;
+import yanwittmann.math.MathEval;
 
 public class MathEvalTest {
 

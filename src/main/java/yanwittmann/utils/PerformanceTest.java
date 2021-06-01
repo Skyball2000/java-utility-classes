@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 /**
  * Use this class to measure the total and average time that a certain operation needs for executing a certain amount of times.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public abstract class PerformanceTest {
@@ -81,7 +82,7 @@ public abstract class PerformanceTest {
     public void print() {
         if (results.size() == 0)
             System.out.println("Make sure to run the PerformanceTest before getting the results!");
-        else System.out.println(toString());
+        else System.out.println(this);
     }
 
     @Override

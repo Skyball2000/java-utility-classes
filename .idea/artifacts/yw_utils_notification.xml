@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yw-utils-notification">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="yw-utils-notification.jar">
+      <element id="directory" name="yanwittmann">
+        <element id="directory" name="notification">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/notification/AbstractNotification$1.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/notification/AbstractNotification.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/notification/BlurNotification.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/notification/NotificationUtils.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/notification/TextBubbleBorder.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

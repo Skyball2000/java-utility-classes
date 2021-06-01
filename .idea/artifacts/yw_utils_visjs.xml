@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="yw-utils-visjs">
+    <output-path>$PROJECT_DIR$/out/artifacts/jar</output-path>
+    <root id="archive" name="yw-utils-visjs.jar">
+      <element id="directory" name="yanwittmann">
+        <element id="directory" name="visjs">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/visjs/VisJS$VisEdge.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/visjs/VisJS$NodeTypeBuilder.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/visjs/VisJS$VisNode.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/visjs/VisJS.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

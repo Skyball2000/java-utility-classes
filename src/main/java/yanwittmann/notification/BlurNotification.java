@@ -8,6 +8,7 @@ import java.util.Arrays;
 /**
  * A notification bar that appears in the bottom right corner that has a blurred background.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public class BlurNotification extends AbstractNotification {

@@ -3,6 +3,7 @@ package yanwittmann.types;
 /**
  * Two values of any class stored in one object.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public class Pair<L, R> {
@@ -39,8 +40,8 @@ public class Pair<L, R> {
     @Override
     public String toString() {
         return "Pair{" +
-                "left=" + left +
-                ", right=" + right +
-                '}';
+               "left=" + left +
+               ", right=" + right +
+               '}';
     }
 }

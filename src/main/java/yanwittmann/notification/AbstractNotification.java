@@ -14,6 +14,7 @@ import java.util.Collections;
  * An example using this is the yanwittmann.notification.BlurNotification.<br>
  * Override methods <i>setSize</i>, <i>createNotification</i>, <i>clicked</i>, <i>into</i> and <i>out</i> to customize your own bar.<br>
  * This class has been written by <a href="http://yanwittmann.de">Yan Wittmann</a>.
+ *
  * @author Yan Wittmann
  */
 public abstract class AbstractNotification extends JFrame {
