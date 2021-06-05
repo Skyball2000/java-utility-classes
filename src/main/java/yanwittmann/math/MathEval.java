@@ -60,16 +60,32 @@ public abstract class MathEval {
             throw new InvalidOperationException("Invalid part of expression: " + expression);
         double value1 = toDouble(parameters[0]);
         double value2 = toDouble(parameters[2]);
-        result = switch (parameters[1]) {
-            case "+" -> value1 + value2;
-            case "-" -> value1 - value2;
-            case "*" -> value1 * value2;
-            case "/" -> value1 / value2;
-            case "^" -> Math.pow(value1, value2);
-            case "√" -> nthRoot(value1, value2);
-            case "%" -> value1 % value2;
-            default -> throw new InvalidOperationException("Invalid operation: " + parameters[1]);
-        };
+        switch (parameters[1]) {
+            case "+":
+                result = value1 + value2;
+                break;
+            case "-":
+                result = value1 - value2;
+                break;
+            case "*":
+                result = value1 * value2;
+                break;
+            case "/":
+                result = value1 / value2;
+                break;
+            case "^":
+                result = Math.pow(value1, value2);
+                break;
+            case "√":
+                result = nthRoot(value1, value2);
+                break;
+            case "%":
+                result = value1 % value2;
+                break;
+            default:
+                throw new InvalidOperationException("Invalid operation: " + parameters[1]);
+        }
+        ;
         return result;
     }
 

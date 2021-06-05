@@ -7,6 +7,9 @@
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/Sleep.class" />
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/GeneralUtils.class" />
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/Popup.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/types/Configuration.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/types/LineBuilder.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/types/Pair.class" />
         </element>
       </element>
     </root>

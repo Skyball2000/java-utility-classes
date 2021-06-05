@@ -38,36 +38,64 @@ public class PhraseTextDataProvider extends DataProvider<String> {
     }
 
     private double prepareValue(char character) {
-        return switch (character) {
-            case 'a' -> 0.03;
-            case 'b' -> 0.06;
-            case 'c' -> 0.09;
-            case 'd' -> 0.12;
-            case 'e' -> 0.15;
-            case 'f' -> 0.18;
-            case 'g' -> 0.21;
-            case 'h' -> 0.24;
-            case 'i' -> 0.27;
-            case 'j' -> 0.3;
-            case 'k' -> 0.33;
-            case 'l' -> 0.36;
-            case 'm' -> 0.39;
-            case 'n' -> 0.42;
-            case 'o' -> 0.45;
-            case 'p' -> 0.48;
-            case 'q' -> 0.51;
-            case 'r' -> 0.54;
-            case 's' -> 0.57;
-            case 't' -> 0.6;
-            case 'u' -> 0.63;
-            case 'v' -> 0.66;
-            case 'w' -> 0.69;
-            case 'x' -> 0.72;
-            case 'y' -> 0.75;
-            case 'z' -> 0.78;
-            case ' ' -> 0.81;
-            default -> 1;
-        };
+        switch (character) {
+            case 'a':
+                return 0.03;
+            case 'b':
+                return 0.06;
+            case 'c':
+                return 0.09;
+            case 'd':
+                return 0.12;
+            case 'e':
+                return 0.15;
+            case 'f':
+                return 0.18;
+            case 'g':
+                return 0.21;
+            case 'h':
+                return 0.24;
+            case 'i':
+                return 0.27;
+            case 'j':
+                return 0.3;
+            case 'k':
+                return 0.33;
+            case 'l':
+                return 0.36;
+            case 'm':
+                return 0.39;
+            case 'n':
+                return 0.42;
+            case 'o':
+                return 0.45;
+            case 'p':
+                return 0.48;
+            case 'q':
+                return 0.51;
+            case 'r':
+                return 0.54;
+            case 's':
+                return 0.57;
+            case 't':
+                return 0.6;
+            case 'u':
+                return 0.63;
+            case 'v':
+                return 0.66;
+            case 'w':
+                return 0.69;
+            case 'x':
+                return 0.72;
+            case 'y':
+                return 0.75;
+            case 'z':
+                return 0.78;
+            case ' ':
+                return 0.81;
+            default:
+                return 1;
+        }
     }
 
     public static char prepareValue(double value) {

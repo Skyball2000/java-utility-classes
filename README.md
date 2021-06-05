@@ -6,9 +6,11 @@ This is mainly a collection of code snippets and classes that I collected over t
 sometimes need to reuse.  
 I hope you can use them for your projects as well.
 
-## Important changes
-The library has now been split up into many jar files, so that not the entire project has to be included when only
-needing a few classes.
+## News
+
+- Set version of the libraries to java 8
+- The library has now been split up into many jar files, so that not the entire project has to be included when only
+  needing a few classes.
 
 ## List of artifacts and classes
 
