@@ -67,14 +67,10 @@ I hope you can use them for your projects as well.
   - `MathEval$UnbalancedBracketsException.class`
 - yw-utils-test
   - `MathEval.class`
-
-
-
-
-
-
-
-
-
+- yw-utils-types
+  - `Configuration.class`
+  - `ImageEditor.class`
+  - `LineBuilder.class`
+  - `Pair.class`
 
 

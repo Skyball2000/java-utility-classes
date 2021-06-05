@@ -79,7 +79,7 @@ public class File extends java.io.File {
     }
 
     public void copyFile(java.io.File destinationFile) throws IOException {
-        FileUtils.copyDirectory(this, destinationFile);
+        FileUtils.copyFile(this, destinationFile);
     }
 
     public void write(byte[] array) throws IOException {
