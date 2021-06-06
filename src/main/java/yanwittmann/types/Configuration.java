@@ -85,6 +85,16 @@ public class Configuration {
     public String getOrDefault(String key, String def) {
         key = prepareKey(key);
         if (hasKey(key)) return values.get(key).replace("CFGEOL", "\n");
+        return def;
+    }
+
+    public String getOrSetDefault(String key, Object def) {
+        return getOrDefault(key, def.toString());
+    }
+
+    public String getOrSetDefault(String key, String def) {
+        key = prepareKey(key);
+        if (hasKey(key)) return values.get(key).replace("CFGEOL", "\n");
         set(key, def);
         return def;
     }
