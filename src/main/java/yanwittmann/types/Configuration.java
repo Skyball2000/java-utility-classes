@@ -47,6 +47,10 @@ public class Configuration {
         }
     }
 
+    public void set(String key, Object value) {
+        set(key, value.toString());
+    }
+
     public void set(String key, String value) {
         key = prepareKey(key);
         values.put(key, value.replace("\n", "CFGEOL"));
@@ -74,11 +78,23 @@ public class Configuration {
         return values.containsKey(key) ? values.get(key).replace("CFGEOL", "\n") : null;
     }
 
+    public String getOrDefault(String key, Object def) {
+        return getOrDefault(key, def.toString());
+    }
+
     public String getOrDefault(String key, String def) {
         key = prepareKey(key);
-        if (values.containsKey(key)) return values.get(key).replace("CFGEOL", "\n");
-        else set(key, def);
-        return null;
+        if (hasKey(key)) return values.get(key).replace("CFGEOL", "\n");
+        set(key, def);
+        return def;
+    }
+
+    public boolean hasKey(String key) {
+        return values.containsKey(key);
+    }
+
+    public boolean hasValue(String value) {
+        return values.containsValue(value);
     }
 
     private HashMap<String, String> get() {

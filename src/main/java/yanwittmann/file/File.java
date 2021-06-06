@@ -18,6 +18,10 @@ public class File extends java.io.File {
         super(pathname);
     }
 
+    public File(java.io.File file) {
+        super(file.getAbsolutePath());
+    }
+
     public File(String parent, String child) {
         super(parent, child);
     }

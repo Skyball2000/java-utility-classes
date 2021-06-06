@@ -6,6 +6,7 @@
         <element id="directory" name="api">
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/api/CountApi.class" />
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/api/GoogleTranslate.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/api/ApiTools.class" />
         </element>
       </element>
     </root>

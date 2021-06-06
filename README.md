@@ -52,6 +52,7 @@ I hope you can use them for your projects as well.
   - `UnsharpFilter.class`
   - `VariableBlurFilter.class`
 - yw-utils-api
+  - `ApiTools.class`
   - `CountApi.class`
   - `GoogleTranslate.class`
 - yw-utils-general
