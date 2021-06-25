@@ -36,6 +36,23 @@ public class ArgParserTest {
         Assertions.assertFalse(argParser2.matches("-t 0.4 test"));
         Results results2 = argParser2.parse("-t string array value hmm 1.5");
         Assertions.assertArrayEquals(results2.getStringArray("test"), new String[]{"string", "array", "value"});
+        Assertions.assertEquals(results2.getDouble("hmm"), 1.5);
+
+        ArgParser argParser3 = new ArgParser();
+        argParser3.setPrefix("server");
+        argParser3.setPrefixRequired(true);
+        argParser3.addArgument(new Argument().addIdentifier("-h", "--help").setRequired(false).setDescription("Prints a help message"));
+        argParser3.addArgument(new Argument().addIdentifier("-l", "--login").setRequired(false).setParameterName("username").setParameterType(STRING).setParameterRequired(true).setDescription("Will ask you for the password, then log you into your account"));
+        Assertions.assertEquals("Usage: server [-h,--help] [-l,--login <username:string>]\n" +
+                                "  [-h,--help]\n" +
+                                "     Prints a help message\n" +
+                                "  [-l,--login <username:string>]\n" +
+                                "     Will ask you for the password, then log you into your account", argParser3.toString());
+        Assertions.assertTrue(argParser3.parse("server").isAbsent("-h"));
+        Assertions.assertTrue(argParser3.parse("server --help").isPresent("-h"));
+        Assertions.assertNull(argParser3.parse("server -h").get("-h"));
+        Assertions.assertTrue(argParser3.parse("server -l user").isPresent("-l"));
+        Assertions.assertTrue(argParser3.parse("server -l user").isAbsent("-h"));
 
     }
 }

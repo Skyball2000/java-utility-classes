@@ -145,6 +145,7 @@ public class ArgParser implements Iterable<ArgParser.Argument> {
                 if (parameter == null) {
                     if (currentArgument.defaultParameterValue != null)
                         results.add(new Result(currentArgument, currentArgumentIndex, currentArgument.defaultParameterValue));
+                    else results.add(new Result(currentArgument, currentArgumentIndex, null));
                 } else {
                     results.add(new Result(currentArgument, currentArgumentIndex, parameter));
                 }
@@ -184,7 +185,7 @@ public class ArgParser implements Iterable<ArgParser.Argument> {
 
         StringBuilder header = new StringBuilder();
         if (prefix != null && prefix.length() > 0)
-            header.append("Usage '").append(prefix).append("': ").append(prefixRequired ? "" : "[").append(prefix).append(prefixRequired ? "" : "]");
+            header.append("Usage: ").append(prefixRequired ? "" : "[").append(prefix).append(prefixRequired ? "" : "]");
         else header.append("Usage:");
         for (Argument argument : sortedArguments) header.append(" ").append(argument);
 
@@ -249,6 +250,10 @@ public class ArgParser implements Iterable<ArgParser.Argument> {
 
         public boolean isPresent(String identifier) {
             return results.stream().anyMatch(result -> result.argument.identifiers.contains(identifier));
+        }
+
+        public boolean isAbsent(String identifier) {
+            return results.stream().noneMatch(result -> result.argument.identifiers.contains(identifier));
         }
 
         public String getString(String identifier) {
