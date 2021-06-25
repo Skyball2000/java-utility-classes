@@ -67,7 +67,7 @@ I hope you can use them for your projects as well.
   - `MathEval$RecursiveException.class`
   - `MathEval$UnbalancedBracketsException.class`
 - yw-utils-test
-  - `MathEval.class`
+  - `PerformanceTest.class`
 - yw-utils-types
   - `Configuration.class`
   - `ImageEditor.class`
