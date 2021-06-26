@@ -1,5 +1,6 @@
 package yanwittmann.ai;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import yanwittmann.ai.provider.DataProvider;
 import yanwittmann.ai.provider.LineTextDataProvider;
@@ -14,6 +15,7 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Random;
 
+@Disabled
 public class NetworkTest {
 
     private static int size = 100, length = 4;
