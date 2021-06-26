@@ -169,20 +169,23 @@ public abstract class GeneralUtils {
         clipboard.setContents(selection, selection);
     }
 
-    /*  "file.separator" 	Character that separates components of a file path. This is "/" on UNIX and "\" on Windows.
-        "java.class.path" 	Path used to find directories and JAR archives containing class files. Elements of the class path are separated by a platform-specific character specified in the path.separator property.
-        "java.home" 	    Installation directory for Java Runtime Environment (JRE)
-        "java.vendor" 	    JRE vendor name
-        "java.vendor.url" 	JRE vendor URL
-        "java.version" 	    JRE version number
-        "line.separator" 	Sequence used by operating system to separate lines in text files
-        "os.arch" 	        Operating system architecture
-        "os.name" 	        Operating system name
-        "os.version" 	    Operating system version
-        "path.separator" 	Path separator character used in java.class.path
-        "user.dir" 	        User working directory
-        "user.home" 	    User home directory
-        "user.name" 	    User account name
+    /**
+     * <table>
+     *     <tr><td><code>file.separator</code></td><td>Character that separates components of a file path.<br>This is "/" on UNIX and "\" on Windows.</td></tr>
+     *     <tr><td><code>java.class.path</code></td><td>Path used to find directories and JAR archives containing class files.<br>Elements of the class path are separated by a platform-specific<br>character specified in the path.separator property.</td></tr>
+     *     <tr><td><code>java.home</code></td><td>Installation directory for Java Runtime Environment (JRE)</td></tr>
+     *     <tr><td><code>java.vendor</code></td><td>JRE vendor name</td></tr>
+     *     <tr><td><code>java.vendor.url</code></td><td>JRE vendor URL</td></tr>
+     *     <tr><td><code>java.version</code></td><td>JRE version number</td></tr>
+     *     <tr><td><code>line.separator</code></td><td>Sequence used by operating system to separate lines in text files</td></tr>
+     *     <tr><td><code>os.arch</code></td><td>Operating system architecture</td></tr>
+     *     <tr><td><code>os.name</code></td><td>Operating system name</td></tr>
+     *     <tr><td><code>os.version</code></td><td>Operating system version</td></tr>
+     *     <tr><td><code>path.separator</code></td><td>Path separator character used in java.class.path</td></tr>
+     *     <tr><td><code>user.dir</code></td><td>User working directory</td></tr>
+     *     <tr><td><code>user.home</code></td><td>User home directory</td></tr>
+     *     <tr><td><code>user.name</code></td><td>User account name</td></tr>
+     * </table>
      */
     public static String getWindowsUsername() {
         return getWindowsProperty("user.name");

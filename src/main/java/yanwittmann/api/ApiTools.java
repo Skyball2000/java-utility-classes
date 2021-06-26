@@ -1,5 +1,6 @@
 package yanwittmann.api;
 
+import yanwittmann.file.FileUtils;
 import yanwittmann.types.Configuration;
 
 import java.io.BufferedInputStream;
@@ -35,6 +36,13 @@ public class ApiTools {
         this.meta = new Configuration(new File(this.storageDirectory.getParentFile(), "api.meta"));
     }
 
+    public void clearStorageDirectory() {
+        if (this.storageDirectory.exists())
+            FileUtils.deleteDirectory(this.storageDirectory);
+        new File(this.storageDirectory.getParentFile(), "api.meta").delete();
+        this.meta = null;
+    }
+
     public File get(String url, long refreshTime) throws IOException {
         return get(new URL(url), refreshTime);
     }
@@ -62,9 +70,10 @@ public class ApiTools {
     }
 
     private String urlToKey(URL url) {
-        return url.getHost().replaceAll("[\\\\/:*?\"<>|]", "") + "/" +
-               (url.hashCode() + url.getFile().replaceAll("(?:.+[\\\\/])+([^\\\\/]+)", "$1") + "")
-                       .replaceAll("[\\\\/:*?\"<>|]", "");
+        String host = url.getHost().replaceAll("[\\\\/:*?\"<>|]", "");
+        long hash = url.toString().hashCode();
+        String filename = hash + url.getFile().replaceAll("(?:.+[\\\\/])+([^\\\\/]+)", "$1").replaceAll("[\\\\/:*?\"<>|]", "");
+        return host + "/" + filename;
     }
 
     private void downloadFile(java.io.File file, URL url) throws IOException {
