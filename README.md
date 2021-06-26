@@ -1,10 +1,9 @@
-# Java utility classes
+# Java Utility Classes
 
 A variety of java classes that make coding easier.
 
-This is mainly a collection of code snippets and classes that I collected over the past few years that I
-sometimes need to reuse.  
-I hope you can use them for your projects as well.
+This is a collection of Java code on a wide variety of different topics that you can use in your own projects.  
+Use them by importing the libraries that the code has been split up into by visiting the releases page.
 
 ## News
 
@@ -37,7 +36,7 @@ I hope you can use them for your projects as well.
   - `BlurNotification.class`
   - `NotificationUtils.class`
   - `TextBubbleBorder.class`
-- huxtable-blur (Copyright 2005 [Huxtable.com](huxtable.com). All rights reserved.)
+- huxtable-blur (Copyright 2005 [Huxtable.com](http://huxtable.com). All rights reserved.)
   - `AbstractBufferedImageOp.class`
   - `BoxBlurFilter.class`
   - `ConvolveFilter.class`
@@ -59,6 +58,14 @@ I hope you can use them for your projects as well.
   - `GeneralUtils.class`
   - `Popup.class`
   - `Sleep.class`
+  - `ArgParser$1.class`
+  - `ArgParser$ArgParserException.class`
+  - `ArgParser$Argument$ParameterType.class`
+  - `ArgParser$Argument.class`
+  - `ArgParser$Result.class`
+  - `ArgParser$Results.class`
+  - `ArgParser.class`
+  - `DateUtils.class`
 - yw-utils-math
   - `MathEval.class`
   - `MathEval$MathEvalException.class`
@@ -73,5 +80,3 @@ I hope you can use them for your projects as well.
   - `ImageEditor.class`
   - `LineBuilder.class`
   - `Pair.class`
-
-

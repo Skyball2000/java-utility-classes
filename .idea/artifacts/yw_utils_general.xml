@@ -7,6 +7,14 @@
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/Sleep.class" />
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/GeneralUtils.class" />
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/Popup.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/ArgParser$1.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/ArgParser$Argument$ParameterType.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/ArgParser$ArgParserException.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/ArgParser$Argument.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/ArgParser$Results.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/ArgParser.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/ArgParser$Result.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/yanwittmann/utils/DateUtils.class" />
         </element>
       </element>
     </root>
