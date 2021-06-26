@@ -170,7 +170,7 @@ public abstract class GeneralUtils {
     }
 
     /**
-     * <table>
+     * <table summary="A list of the most important windows properties">
      *     <tr><td><code>file.separator</code></td><td>Character that separates components of a file path.<br>This is "/" on UNIX and "\" on Windows.</td></tr>
      *     <tr><td><code>java.class.path</code></td><td>Path used to find directories and JAR archives containing class files.<br>Elements of the class path are separated by a platform-specific<br>character specified in the path.separator property.</td></tr>
      *     <tr><td><code>java.home</code></td><td>Installation directory for Java Runtime Environment (JRE)</td></tr>
