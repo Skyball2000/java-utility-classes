@@ -6,12 +6,6 @@ This is a collection of Java code on a wide variety of different topics that you
 Use them by importing the libraries that the code has been split up into by visiting the releases page.  
 [JavaDocs](https://skyball2000.github.io/java-utility-classes/pages/JavaDocs/) of the library.
 
-## News
-
-- Set version of the libraries to java 8
-- The library has now been split up into many jar files, so that not the entire project has to be included when only
-  needing a few classes.
-
 ## List of artifacts and classes
 
 - yw-utils-file
