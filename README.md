@@ -4,7 +4,7 @@ A variety of java classes that make coding easier.
 
 This is a collection of Java code on a wide variety of different topics that you can use in your own projects.  
 Use them by importing the libraries that the code has been split up into by visiting the releases page.  
-[JavaDocs](http://skyball2000.github.io/java-utility-classes/pages/JavaDocs) of the library.
+[JavaDocs](https://skyball2000.github.io/java-utility-classes/pages/JavaDocs/) of the library.
 
 ## News
 
